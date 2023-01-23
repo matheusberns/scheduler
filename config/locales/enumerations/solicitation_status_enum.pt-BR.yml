@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    solicitation_status_enum:
+      pending: Gerando arquivo
+      executed: Arquivo gerado, clique no botão PDF
+      error: Não foi possível gerar, tente novamente
+      no_information: Não houve informações a listar

@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    poll_status_enum:
+      waiting: Aguardando
+      published: Publicada
+      finished: Finalizada

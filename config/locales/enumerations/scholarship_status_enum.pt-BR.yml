@@ -1,0 +1,8 @@
+pt-BR:
+  enumerations:
+    scholarship_status_enum:
+      in_typing: Em digitação
+      enrollments_open: Inscrições abertas
+      candidate_analysis: Análise de candidatos
+      finished: Finalizada
+      canceled: Cancelada

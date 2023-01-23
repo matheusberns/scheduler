@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    solicitation_list_status_enum:
+      pending: Gerando arquivo
+      executed: Arquivo gerado
+      error: Não foi possível gerar
+      no_information: Não houve informações a listar

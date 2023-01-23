@@ -1,0 +1,4 @@
+pt-BR:
+  enumerations:
+    calendar_type_enum:
+      event: Evento

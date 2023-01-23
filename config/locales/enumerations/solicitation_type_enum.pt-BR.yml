@@ -1,0 +1,14 @@
+pt-BR:
+  enumerations:
+    solicitation_type_enum:
+      payroll: Folha de pagamento
+      employment_bond: Vínculo empregatício
+      point_card: Cartão ponto
+      point_mirror: Apuração do ponto
+      bank_hour: Banco de horas
+      vacation_balance: Balanço de férias
+      vacation_warning: Aviso de férias
+      vacation_receipt: Recibo de férias
+      report_income: Informe de rendimentos
+      profit_sharing: P.P.R
+      christmas_bonus: 13º salário

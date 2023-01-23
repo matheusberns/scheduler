@@ -1,0 +1,10 @@
+pt-BR:
+  enumerations:
+    survey_status_enum:
+      in_typing: Em digitação
+      finished: Finalizado
+      canceled: Cancelado
+      published: Publicado
+      to_answer: Para responder
+      partially_answered: Parcialmente respondida
+      answered: Respondida

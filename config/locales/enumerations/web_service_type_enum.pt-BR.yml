@@ -1,0 +1,13 @@
+pt-BR:
+  enumerations:
+    web_service_type_enum:
+      vetorh_admitted: Vetorh - Consultar colaboradores admitidos
+      vetorh_fired: Vetorh - Consultar colaboradores demitidos
+      vetorh_consult: Vetorh - Consultar colaboradores
+      rubi_reports: Vetorh - Pagamentos ou férias
+      ronda_reports: Vetorh - Cartão ponto e banco de horas
+      vetorh_cpf_consult: Vetorh - Consultar colaboradores pelo CPF
+      vetorh_complementary_consult: Vetorh - Consultar informações complementares
+      vetorh_districts_update: Vetorh - Consulta de tabelas auxiliares(distritos)
+      vetorh_complementary_update: Vetorh - Atualizar informações complementares
+      vetorh_consult_manager: Vetorh - Consulta gestor por colaborador

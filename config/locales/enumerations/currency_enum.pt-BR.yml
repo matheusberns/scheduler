@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    currency_enum:
+      dollar_sale: Dólar (venda)
+      dollar_purchase: Dólar (compra)
+      euro_sale: Euro (venda)
+      euro_purchase: Euro (compra)

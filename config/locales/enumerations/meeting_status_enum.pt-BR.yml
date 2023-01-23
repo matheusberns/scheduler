@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    meeting_status_enum:
+      reserved: Reservado
+      canceled: Cancelado

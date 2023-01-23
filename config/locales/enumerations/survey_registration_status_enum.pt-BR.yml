@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    survey_registration_status_enum:
+      subscribed: Inscrito
+      canceled: Cancelado

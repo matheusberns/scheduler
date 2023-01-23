@@ -1,0 +1,9 @@
+pt-BR:
+  enumerations:
+    scholarship_proof_reprove_reason_enum:
+      ticket_or_invoice_required: Falta anexar boleto ou fatura
+      proof_of_payment_or_receipt_required: Falta anexar comprovante de pagamento ou recibo
+      missing_proof_information: Comprovante não contém todas as informações
+      attachment_open_issue: Anexo não abre
+      different_values_between_ticket_and_receipt: Divergência de valores entre boleto e comprovante
+      other: Outros

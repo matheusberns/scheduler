@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    comment_status_enum:
+      pending: Pendente
+      disapproved: Reprovado
+      approved: Aprovado

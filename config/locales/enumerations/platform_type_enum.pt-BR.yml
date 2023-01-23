@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    platform_type_enum:
+      web: Web
+      ios: Ios
+      android: Android

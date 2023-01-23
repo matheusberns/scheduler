@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    token_type_enum:
+      apnotic: Apnotic (iOS)
+      firebase: Firebase (Web/Android)

@@ -1,0 +1,11 @@
+pt-BR:
+  enumerations:
+    user_ethnicity_enum:
+      white: Branca
+      black: Preta/Negra
+      yellow: Amarela
+      brown: Parda
+      indigenous: Indígena
+      mamluk: Mameluca
+      mulatto: Mulato
+      cafuzo: Cafuzo

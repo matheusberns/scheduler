@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    benefit_status_enum:
+      pending: Pendente
+      executed: Executado
+      error: Erro

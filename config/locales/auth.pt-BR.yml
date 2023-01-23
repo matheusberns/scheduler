@@ -1,0 +1,4 @@
+pt-BR:
+  auth:
+    require_user_authentication: Faça login para continuar
+    require_no_user_authentication: Você já está autenticado

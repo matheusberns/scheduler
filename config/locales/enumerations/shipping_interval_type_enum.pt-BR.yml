@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    shipping_interval_type_enum:
+      course_beggining: Início do curso
+      course_ending: Final do curso
+      semester: Semestral
+      monthly: Mensal

@@ -1,0 +1,14 @@
+pt-BR:
+  enumerations:
+    tool_module_type_enum:
+      tool: Ferramentas
+      vacation: Férias
+      point: Ponto
+      payroll: Folhas
+      declaration: Declarações
+      benefit: Benefícios
+      restaurant: Restaurante
+      reservation: Reservas
+      solicitation: Solicitações
+      post: Publicações
+      contract: Contratos

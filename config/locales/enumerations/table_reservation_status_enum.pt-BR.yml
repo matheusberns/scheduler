@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    table_reservation_status_enum:
+      reserved: Reservado
+      canceled: Cancelado
+      check_in: Check-in
+      concluded: Concluído

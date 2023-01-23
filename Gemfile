@@ -48,15 +48,15 @@ group :development do
   gem 'spring', '3.0.0'
 end
 
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+
 # Token based authentication for Rails JSON APIs.
 gem 'devise', '~> 4.8.0'
 gem 'devise_token_auth'
 
 # Enumerations for Ruby with some magic powers!
 gem 'enumerate_it'
-
-# A lightning fast JSON:API serializer for Ruby Objects.
-gem 'active_model_serializers'
 
 # Pagination library.
 gem 'will_paginate'
@@ -67,7 +67,7 @@ gem 'httparty'
 # Rollbar is a real-time exception reporting service for Ruby and other languages.
 gem 'rollbar'
 
-# The New Relic Ruby agent monitors your applications
+# The New Relic Ruby agent monitors your applications to help you identify and solve performance issues.
 gem 'newrelic_rpm'
 
 # This gem does some CPF/CNPJ magic. It allows you to create, validate and format CPF/CNPJ, even through the command-line
@@ -86,10 +86,41 @@ gem 'savon', '~> 2.12.0'
 gem 'pdf-reader', '~> 1.4'
 
 # Community Axlsx is an Office Open XML Spreadsheet generator for the Ruby programming language.
-gem 'caxlsx'
+gem 'axlsx_styler'
+gem 'caxlsx', '3.1.1'
+gem 'caxlsx_rails'
 
-# Houston is a simple gem for sending Apple Push Notifications. Pass your credentials, construct your message, and send it.
-gem 'houston'
+# Roo implements read access for all common spreadsheet types. It can handle:
+gem 'roo-xls'
+
+# Apnotic is a gem for sending Apple Push Notifications using the HTTP-2 specifics.
+gem 'apnotic'
 
 # Net::LDAP for Ruby (also called net-ldap) implements client access for the Lightweight Directory Access Protocol (LDAP)
 gem 'net-ldap'
+
+# Rubyzip is a ruby library for reading and writing zip files
+gem 'rubyzip'
+
+# Prawn::Rails provides a simple way of creating PDF views in Rails 3 using the prawn library.
+gem 'prawn-rails'
+
+# Simple yet powerful wrapper around the ffmpeg command for reading metadata and transcoding movies.
+gem 'streamio-ffmpeg'
+
+# Creates QR code files in png, bmp, png, jpg, tif and svg file format.
+gem 'rqrcode', '~> 2.0'
+
+# Object geocoding (by street or IP address), reverse geocoding (coordinates to street address)
+gem 'geocoder', '~> 1.7', '>= 1.7.2'
+
+# Uses wkhtmltopdf to create PDFs using HTML
+gem 'pdfkit', '~> 0.8.5'
+
+gem 'hexapdf'
+
+# Provides binaries for WKHTMLTOPDF project in an easily accessible package.
+gem 'wkhtmltopdf-binary', '0.12.6.5'
+
+# This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests.
+gem 'rails-controller-testing'

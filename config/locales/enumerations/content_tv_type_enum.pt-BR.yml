@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    content_tv_type_enum:
+      video: Vídeo
+      image: Imagem

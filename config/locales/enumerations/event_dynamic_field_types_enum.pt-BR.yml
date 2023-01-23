@@ -1,0 +1,11 @@
+pt-BR:
+  enumerations:
+    event_dynamic_field_types_enum:
+      text: Texto
+      integer: Número
+      date: Data
+      checkbox: Caixa de seleção
+      decimal: Decimal
+      hour: Hora
+      datetime: Data e hora
+      list: Lista

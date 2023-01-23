@@ -1,0 +1,10 @@
+pt-BR:
+  enumerations:
+    event_status_enum:
+      in_typing: Em digitação
+      enrollments_open: Inscrições abertas
+      finished: Finalizado
+      canceled: Cancelado
+      published: Publicado
+      in_progress: Em andamento
+      enrollments_closed: Inscrições encerradas

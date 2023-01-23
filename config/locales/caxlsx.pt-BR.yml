@@ -1,0 +1,59 @@
+pt-BR:
+  caxlsx:
+    meal_rating:
+      attributes:
+        meal_plan_date: 'Data cardápio'
+        meal_name: 'Refeição'
+        rating: 'Nota (1-5)'
+        commentary: 'Comentário'
+        department: 'Departamento'
+        headquarter: 'Unidade'
+        created_by: 'Avaliado por'
+    scholarship_user_proof:
+      attributes:
+        number: 'Nº'
+        register: 'Cadastro'
+        name: 'Nome'
+        cpf: 'CPF'
+        cost_center: 'Centro de custo'
+        center_number: 'N. Centro de Custo'
+        course: 'Curso'
+        educational_institution: 'Instituição de Ensino'
+        formation: 'Modalidade Bolsa'
+        refund_percentage: '% Aprovado'
+        bank_name: 'Banco'
+        bank_agency: 'Agência'
+        bank_account: 'Conta corrente'
+        bank_account_digit: 'Dígito da conta corrente'
+        total: 'Total'
+      months:
+        1: 'I'
+        2: 'J'
+        3: 'K'
+        4: 'L'
+        5: 'M'
+        6: 'N'
+        7: 'O'
+        8: 'P'
+        9: 'Q'
+        10: 'R'
+        11: 'S'
+        12: 'T'
+    solicitation:
+      attributes:
+        identification_number: 'Matrícula'
+        name: 'Nome'
+        created_at: 'Data da Solicitação'
+        confirmation_date: 'Data de Confirmação'
+        solicitation_type: 'Tipo de Solicitação'
+    event_registration:
+      attributes:
+        user_identification_number: 'Matrícula'
+        user_name: 'Nome do colaborador'
+        user_headquarter: 'Cód. Empresa'
+        user_mother_name: 'Nome da mãe'
+        user_birthday: 'Data de nascimento'
+        user_department_code: 'Cód. CC'
+        user_department_name: 'Descrição CC'
+        participant_name: 'Nome do Participante'
+        participant_cpf: 'CPF do Participante'

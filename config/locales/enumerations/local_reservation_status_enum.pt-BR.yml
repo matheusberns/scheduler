@@ -1,0 +1,9 @@
+pt-BR:
+  enumerations:
+    local_reservation_status_enum:
+      waiting: Aguardando
+      approved: Aprovado
+      reproved: Reprovado
+      canceled: Cancelado
+      check_in: Check-in
+      check_out: Concluído

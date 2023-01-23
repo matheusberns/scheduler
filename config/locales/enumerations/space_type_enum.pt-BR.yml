@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    space_type_enum:
+      post: Publicação
+      tool: Ferramenta

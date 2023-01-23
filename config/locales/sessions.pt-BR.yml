@@ -1,0 +1,9 @@
+pt-BR:
+  sessions:
+    create:
+      success: Login efetuado com sucesso
+      error: Usuário e/ou senha inválidos
+      unconfirmed: "Uma confirmação de conta foi enviada para %{email}, siga as instruções no e-mail para ativar sua conta"
+    destroy:
+      success: Logout efetuado com sucesso
+      not_found: Usuário não encontrado ou não está logado

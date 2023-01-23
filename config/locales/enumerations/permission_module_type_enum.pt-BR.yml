@@ -1,0 +1,33 @@
+pt-BR:
+  enumerations:
+    permission_module_type_enum:
+      post: Publicações
+      group: Grupos
+      department: Departamentos
+      restaurant: Restaurante
+      poll: Enquetes
+      corporate_tv: TV corporativa
+      birthday_card: Cartões de aniversário
+      contact: Contatos
+      headquarter: Unidades
+      space: Espaços
+      shift: Turnos
+      user: Usuários
+      useful_website: Sites úteis
+      car: Veículos
+      category_attendance: Categorias de atendimento
+      priority_attendance: Prioridades de atendimento
+      attendance: Atendimentos
+      solicitation: RH digital
+      account: Conta
+      meeting_room: Salas de Reunião
+      table: Mesas
+      local: Locais
+      company_birthday_card: Cartões de aniversário de empresa
+      district: Bairros
+      digital_magazine: Revista digital
+      visit: Visitas
+      scholarship: Bolsas de estudo
+      calendar: Calendário
+      contract: Contratos
+      employee_journey: Meu ponto
