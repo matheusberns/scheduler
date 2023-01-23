@@ -12,109 +12,15 @@ class Account < ApplicationRecord
   has_one_attached :active_directory_ca_file
 
   # Enumerations
-  has_enumeration_for :layout_space_bar, with: ::LayoutSpaceBarEnum, create_helpers: true
 
   # Belongs_to associations
 
   # Has_many associations
-  has_many :access_logs, class_name: '::AccessLog', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :contract_users, class_name: '::Many::ContractUser', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :contracts, class_name: '::Contract', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :employee_journeys, class_name: '::EmployeeJourney', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :employee_journey_records, class_name: '::EmployeeJourneyRecord', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :equipment_contracts, class_name: '::Many::EquipmentContract', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :equipment_registrations, class_name: '::EquipmentRegistration', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :equipment_users, class_name: '::Many::EquipmentUser', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :attendances, class_name: '::Attendance', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :attendance_answers, class_name: '::AttendanceAnswer', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :attendance_categories, class_name: '::AttendanceCategory', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :attendance_priorities, class_name: '::AttendancePriority', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :birthday_cards, class_name: '::BirthdayCard', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :company_birthday_cards, class_name: '::CompanyBirthdayCard', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :calendars, class_name: '::Calendar', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :car_reservations, class_name: '::Reservations::CarReservation', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :cars, class_name: '::Car', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :car_pools, class_name: 'CarPool', inverse_of: :user, foreign_key: :account_id, dependent: :destroy
-  has_many :chat_rooms, class_name: 'Chat::Room', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :comments, class_name: '::Comment', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :contacts, class_name: '::Contact', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :content_tvs, class_name: '::ContentTv', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :corporate_tvs, class_name: '::CorporateTv', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :departments, class_name: '::Department', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :digital_magazines, class_name: '::DigitalMagazine', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :dynamic_documents, class_name: '::DynamicDocument', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :event_dynamic_forms, class_name: '::EventDynamicForm', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :event_groups, class_name: '::Many::EventGroup', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :event_registrations, class_name: '::EventRegistration', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :dishes, class_name: '::Dish', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :districts, class_name: '::Region::District', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :emergency_contacts, class_name: '::EmergencyContact', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :events, class_name: '::Event', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :groups, class_name: '::Group', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :group_permissions, class_name: '::Many::GroupPermission', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :headquarters, class_name: '::Headquarter', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :integrations, class_name: '::Integration', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :job_titles, class_name: '::JobTitle', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :license_plates, class_name: '::LicensePlate', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :likes, class_name: '::Like', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :local_reservations, class_name: '::Reservations::LocalReservation', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :locals, class_name: '::Local', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :meal_plans, class_name: '::MealPlan', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :meals, class_name: '::Meal', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :meal_ratings, class_name: '::MealRating', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :meetings, class_name: 'Reservations::Meeting', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :meeting_rooms, class_name: '::MeetingRoom', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :messages, class_name: 'Chat::Rooms::Message', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :message_participants, class_name: 'Chat::Rooms::MessageParticipant', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :notifications, class_name: '::Notification', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :notification_tokens, class_name: '::NotificationToken', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :participants, class_name: 'Chat::Rooms::Participant', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :post_groups, class_name: '::Many::PostGroup', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :posts, class_name: '::Post', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :polls, class_name: '::Poll', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :poll_options, class_name: '::PollOption', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :shifts, class_name: '::Shift', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :solicitations, class_name: '::Solicitation', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :scholarships, class_name: '::Scholarship', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :scholarship_proofs, class_name: '::ScholarshipProof', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :scholarship_user_dynamic_documents, class_name: '::Many::ScholarshipUserDynamicDocument', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :scholarship_user_proofs, class_name: '::ScholarshipUserProof', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :scholarship_users, class_name: '::ScholarshipUser', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :scholarship_user_transfers, class_name: '::ScholarshipUserTransfer', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :message_submissions, class_name: '::MessageSubmission', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :message_submission_groups, class_name: '::Many::MessageSubmissionGroup', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :message_submission_users, class_name: '::Many::MessageSubmissionUser', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :spaces, class_name: '::Space', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :surveys, class_name: '::Survey', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :survey_asks, class_name: '::SurveyAsk', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :survey_groups, class_name: '::Many::SurveyGroup', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :survey_ask_answers, class_name: '::SurveyAskAnswer', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :survey_ask_fields, class_name: '::SurveyAskField', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :survey_ask_options, class_name: '::SurveyAskOption', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :tables, class_name: '::Table', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :table_reservations, class_name: '::Reservations::TableReservation', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :unimeds, class_name: '::Unimed', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :uniodontos, class_name: '::Uniodonto', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :visiting_companies, class_name: 'Visits::VisitingCompany', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :visiting_persons, class_name: 'Visits::VisitingPerson', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :visits, class_name: '::Visit', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :visit_users, class_name: '::Many::VisitUser', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :visiting_person_visits, class_name: '::Many::VisitingPersonVisit', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :use_terms, class_name: '::UseTerm', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :useful_websites, class_name: '::UsefulWebsite', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :users, class_name: '::User', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :user_timeline, class_name: 'UserTimeline', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :web_services, class_name: '::WebService', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :web_service_reports, class_name: '::WebServiceReport', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :web_service_report_exceptions, class_name: '::WebServiceReportException', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
 
   # Many-to-many associations
-  has_many :account_tools, -> { activated }, class_name: 'Many::AccountTool', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :all_account_tools, class_name: 'Many::AccountTool', foreign_key: :account_id, dependent: :destroy
 
   # Has-many through
-  has_many :tools, through: :account_tools
-  has_many :space_tools, through: :spaces
 
   # Scopes
   scope :list, lambda {

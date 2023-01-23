@@ -124,3 +124,6 @@ gem 'wkhtmltopdf-binary', '0.12.6.5'
 
 # This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests.
 gem 'rails-controller-testing'
+
+#An implementation of Matrix and Vector classes.
+gem 'matrix'
