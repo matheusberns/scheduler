@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Api::Application.routes.draw do
+BarberApp::Application.routes.draw do
   scope module: :account_admins do
     match 'current_account/show' => 'current_account/accounts#show', via: :get
     match 'current_account/update' => 'current_account/accounts#update', via: %i[put patch]

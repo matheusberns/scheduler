@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-Api::Application.routes.draw do
+BarberApp::Application.routes.draw do
   scope module: :admins do
     match 'switch_to_user' => 'administrators#switch_to_user', via: :post
 
