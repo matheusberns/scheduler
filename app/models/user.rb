@@ -113,6 +113,7 @@ class User < ApplicationRecord
     if: :cpf_required?,
     message: :need_email_or_cpf
   }
+
   validates_uniqueness_of :cpf, allow_blank: true, if: :cpf_changed?
 
   # validates_presence_of :password, if: :password_required?
