@@ -157,10 +157,6 @@ class User < ApplicationRecord
     is_account_admin
   end
 
-  def manager?
-    managers_team.any?
-  end
-
   def user?
     !administrator? && !account_administrator?
   end
