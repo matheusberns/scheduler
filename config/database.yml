@@ -11,18 +11,18 @@ default: &default
 
 development:
   <<: *default
-  database: portal_client_development
+  database: smartbarber_development
 
 test:
   <<: *default
-  database: portal_client_test
+  database: smartbarber_test
 
 sandbox:
   <<: *default
-  database: portal_client_sandbox
+  database: smartbarber_sandbox
 
 production:
   <<: *default
   host: localhost
-  database: portal_client_production
+  database: smartbarber_production
   password: <%= ENV['DATABASE_PASSWORD'] %>

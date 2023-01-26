@@ -19,7 +19,6 @@ class User < ApplicationRecord
   # Enumerations
 
   # Belongs_to associations
-  belongs_to :customer, -> { activated }, class_name: '::Customer', inverse_of: :users, foreign_key: :customer_id, optional: true
   belongs_to :integration, -> { activated }, class_name: '::Integration', inverse_of: :users, foreign_key: :integration_id, optional: true
   belongs_to :account, -> { activated }, class_name: '::Account', inverse_of: :users, foreign_key: :account_id, optional: true
   belongs_to :state, -> { activated }, class_name: '::Region::State', inverse_of: :users, foreign_key: :state_id, optional: true
@@ -28,8 +27,6 @@ class User < ApplicationRecord
   # Has_many associations
   has_many :notifications, class_name: '::Notification', inverse_of: :user, foreign_key: :user_id
   has_many :notification_tokens, class_name: '::NotificationToken', inverse_of: :user, foreign_key: :user_id
-  has_many :services, class_name: '::Services', inverse_of: :responsible, foreign_key: :responsible_id
-  has_many :user_logs, class_name: '::UserLog', inverse_of: :user, foreign_key: :user_id
 
   # Many-to-many associations
 
@@ -39,14 +36,6 @@ class User < ApplicationRecord
   has_one :account_logo, through: :account, source: :logo_attachment
 
   # Has-many through
-  has_many :transporters, through: :account
-  has_many :representatives, through: :account
-  has_many :orders, through: :customer
-  has_many :invoices, through: :customer
-  has_many :billings, through: :customer
-  has_many :services, through: :customer
-  has_many :budgets, through: :customer
-  has_many :order_items, through: :orders
 
   # Scopes
   scope :list, lambda {
@@ -57,7 +46,6 @@ class User < ApplicationRecord
       .select("#{::Account.table_name}.secondary_colors account_secondary_colors")
       .left_joins(:account)
       .includes(photo_attachment: :blob)
-      .includes(:invoices)
   }
   scope :show, lambda {
     select("#{table_name}.*")
@@ -67,7 +55,6 @@ class User < ApplicationRecord
       .select("#{::Account.table_name}.secondary_colors account_secondary_colors")
       .select("#{::Customer.table_name}.name customer_name")
       .select("#{::Customer.table_name}.cpf_cnpj customer_cpf_cnpj")
-      .left_joins(:customer)
       .left_joins(:account)
       .includes(photo_attachment: :blob)
       .traceability
@@ -112,7 +99,7 @@ class User < ApplicationRecord
   before_validation :set_provider,
                     :set_uid
 
-  after_create :send_welcome_mail
+  # after_create :send_welcome_mail
 
   # Validations
   validates_presence_of :email, {
@@ -157,39 +144,28 @@ class User < ApplicationRecord
 
   validate :administrator_restriction
 
-  def send_welcome_mail
-    return unless is_new_user
-
-    params = { redirect_url: "#{account.base_url}/alterar-senha", config_name: 'default' }
-    @client_config = params[:config_name]
-
-    @redirect_url = params.fetch(
-      :redirect_url,
-      DeviseTokenAuth.default_password_reset_url
-    )
-
-    ActionMailer::Base.default_url_options[:host] = account.api_base_url
-
-    send_reset_password_instructions(
-      email: email,
-      provider: 'email',
-      redirect_url: @redirect_url,
-      authkey: AUTH_KEY,
-      client_config: params[:config_name],
-      welcome_mail: true
-    )
-  end
-
-  def create_log(description: nil)
-    user_logs.create(
-      {
-        description: description,
-        account_id: account_id,
-        customer_id: customer_id,
-        date: Time.now
-      }
-    )
-  end
+  # def send_welcome_mail
+  #   return unless is_new_user
+  #
+  #   params = { redirect_url: "#{account.base_url}/alterar-senha", config_name: 'default' }
+  #   @client_config = params[:config_name]
+  #
+  #   @redirect_url = params.fetch(
+  #     :redirect_url,
+  #     DeviseTokenAuth.default_password_reset_url
+  #   )
+  #
+  #   ActionMailer::Base.default_url_options[:host] = account.api_base_url
+  #
+  #   send_reset_password_instructions(
+  #     email: email,
+  #     provider: 'email',
+  #     redirect_url: @redirect_url,
+  #     authkey: AUTH_KEY,
+  #     client_config: params[:config_name],
+  #     welcome_mail: true
+  #   )
+  # end
 
   def administrator?
     is_admin
@@ -197,14 +173,6 @@ class User < ApplicationRecord
 
   def account_administrator?
     is_account_admin
-  end
-
-  def customer_ids
-    (::Contact.by_cpf(cpf).pluck(:customer_id) + [customer_id]).compact
-  end
-
-  def customer?
-    customer_ids.any?
   end
 
   def administrator_restriction

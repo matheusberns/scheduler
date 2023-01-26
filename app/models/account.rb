@@ -15,33 +15,12 @@ class Account < ApplicationRecord
   # Belongs_to associations
 
   # Has_many associations
-  has_many :customers, class_name: '::Customer', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :users, class_name: '::User', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :notifications, class_name: '::Notification', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :notification_tokens, class_name: '::NotificationToken', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :payment_conditions, class_name: '::PaymentCondition', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :transporters, class_name: '::Transporter', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :orders, class_name: '::Order', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :order_items, class_name: '::OrderItem', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :integrations, class_name: '::Integration', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :invoices, class_name: '::Invoice', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :billings, class_name: '::Billing', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :services, class_name: '::Service', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :installments, class_name: '::Installment', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :order_ratings, class_name: '::OrderRating', inverse_of: :account, foreign_key: :account_id
-  has_many :user_logs, class_name: '::UserLog', inverse_of: :account, foreign_key: :account_id
-  has_many :products, class_name: '::Product', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :product_derivations, class_name: '::ProductDerivation', inverse_of: :account, foreign_key: :account_id
-  has_many :budgets, class_name: '::Budget', inverse_of: :account, foreign_key: :account_id
-  has_many :budget_items, class_name: '::BudgetItem', inverse_of: :account, foreign_key: :account_id
-  has_many :representatives, class_name: '::Representative', inverse_of: :account, foreign_key: :account_id
-  has_many :contacts, class_name: '::Contact', inverse_of: :account, foreign_key: :account_id
-  has_many :external_services, class_name: '::ExternalService', inverse_of: :account, foreign_key: :account_id
-  has_many :web_services, class_name: '::WebService', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
-  has_many :web_service_reports, class_name: '::WebServiceReport', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
 
   # Many-to-many associations
-  has_many :order_invoices, class_name: '::Many::OrderInvoice', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :all_account_tools, class_name: 'Many::AccountTool', foreign_key: :account_id, dependent: :destroy
   has_many :account_tools, -> { activated }, class_name: 'Many::AccountTool', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :tools, through: :account_tools
