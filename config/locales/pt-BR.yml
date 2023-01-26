@@ -30,32 +30,32 @@ pt-BR:
       - Nov
       - Dez
     day_names:
-      - Domingo
-      - Segunda-feira
-      - Terça-feira
-      - Quarta-feira
-      - Quinta-feira
-      - Sexta-feira
-      - Sábado
+      - domingo
+      - segunda-feira
+      - terça-feira
+      - quarta-feira
+      - quinta-feira
+      - sexta-feira
+      - sábado
     formats:
       default: "%d/%m/%Y"
       long: "%d de %B de %Y"
       short: "%d de %B"
-      month_year: "%B de %Y"
+      month_year: "%b/%Y"
     month_names:
       -
-      - Janeiro
-      - Fevereiro
-      - Março
-      - Abril
-      - Maio
-      - Junho
-      - Julho
-      - Agosto
-      - Setembro
-      - Outubro
-      - Novembro
-      - Dezembro
+      - janeiro
+      - fevereiro
+      - março
+      - abril
+      - maio
+      - junho
+      - julho
+      - agosto
+      - setembro
+      - outubro
+      - novembro
+      - dezembro
     order:
       - :day
       - :month
@@ -131,10 +131,10 @@ pt-BR:
       required: É obrigatório(a)
       taken: Já está em uso
       unalterable: Não pode ser alterado
-      need_email_or_cpf: Informe e-mail ou CPF
+      need_email: Informe e-mail
+      need_cpf: Informe CPF
       contact_invalid: Informe e-mail ou número e tipo
       invalid_current_password: Senha atual incorreta
-      uninformed_current_password: Senha atual deve ser informada
       too_long:
         one: 'É muito longo (máximo: 1 caracter)'
         other: 'É muito longo (máximo: %{count} caracteres)'
@@ -226,19 +226,5 @@ pt-BR:
       normal: "%d de %B de %Y"
       long: "%d de %B de %Y, %H:%M"
       short: "%d de %B, %H:%M"
-      month_year: "%b de %Y"
+      month_year: "%b/%Y"
     pm: ''
-  mailer:
-    new_car_reservation:
-      subject: "Nova reserva de veículo"
-    new_local_reservation:
-      subject: "Nova reserva de local"
-  activemodel:
-    errors:
-      models:
-        import/company_time:
-          attributes:
-            base:
-              user_error: Não foi encontrado usuários para atualizar. Verifique o arquivo escolhido
-              excel_error: O formato do arquivo esperado deve ser Excel (XLS ou XLSX). Verifique o arquivo escolhido
-              format_error: Arquivo selecionado não está no formato esperado

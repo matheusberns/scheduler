@@ -3,94 +3,121 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :lockable, :timeoutable, :trackable, :omniauthable, :confirmable, :registerable
-  devise :database_authenticatable, :recoverable, :rememberable, :trackable
+  devise :database_authenticatable, :recoverable, :rememberable, :trackable, :timeoutable, timeout_in: 15.minutes
 
   include DeviseTokenAuth::Concerns::User
 
   # Accessors
-  attr_accessor :update_to_integration, :current_solicitation_password
+  attr_accessor :update_to_integration, :is_new_user
 
   # Concerns
 
   # Active storage
   has_one_attached :photo
-  has_one_attached :background_profile_image
   has_one_attached :driver_license_photo
 
   # Enumerations
 
   # Belongs_to associations
+  belongs_to :customer, -> { activated }, class_name: '::Customer', inverse_of: :users, foreign_key: :customer_id, optional: true
+  belongs_to :integration, -> { activated }, class_name: '::Integration', inverse_of: :users, foreign_key: :integration_id, optional: true
   belongs_to :account, -> { activated }, class_name: '::Account', inverse_of: :users, foreign_key: :account_id, optional: true
+  belongs_to :state, -> { activated }, class_name: '::Region::State', inverse_of: :users, foreign_key: :state_id, optional: true
+  belongs_to :city, -> { activated }, class_name: '::Region::City', inverse_of: :users, foreign_key: :city_id, optional: true
 
   # Has_many associations
+  has_many :notifications, class_name: '::Notification', inverse_of: :user, foreign_key: :user_id
+  has_many :notification_tokens, class_name: '::NotificationToken', inverse_of: :user, foreign_key: :user_id
+  has_many :services, class_name: '::Services', inverse_of: :responsible, foreign_key: :responsible_id
+  has_many :user_logs, class_name: '::UserLog', inverse_of: :user, foreign_key: :user_id
 
   # Many-to-many associations
 
   # Has-one through
+  has_one :account_menu_background, through: :account, source: :menu_background_attachment
+  has_one :account_toolbar_background, through: :account, source: :toolbar_background_attachment
+  has_one :account_logo, through: :account, source: :logo_attachment
 
   # Has-many through
+  has_many :transporters, through: :account
+  has_many :representatives, through: :account
+  has_many :orders, through: :customer
+  has_many :invoices, through: :customer
+  has_many :billings, through: :customer
+  has_many :services, through: :customer
+  has_many :budgets, through: :customer
+  has_many :order_items, through: :orders
 
   # Scopes
   scope :list, lambda {
     select("#{table_name}.*")
+      .select("#{::Account.table_name}.primary_color account_primary_color")
+      .select("#{::Account.table_name}.secondary_color account_secondary_color")
+      .select("#{::Account.table_name}.primary_colors account_primary_colors")
+      .select("#{::Account.table_name}.secondary_colors account_secondary_colors")
+      .left_joins(:account)
+      .includes(photo_attachment: :blob)
+      .includes(:invoices)
   }
   scope :show, lambda {
     select("#{table_name}.*")
+      .select("#{::Account.table_name}.primary_color account_primary_color")
+      .select("#{::Account.table_name}.secondary_color account_secondary_color")
+      .select("#{::Account.table_name}.primary_colors account_primary_colors")
+      .select("#{::Account.table_name}.secondary_colors account_secondary_colors")
+      .select("#{::Customer.table_name}.name customer_name")
+      .select("#{::Customer.table_name}.cpf_cnpj customer_cpf_cnpj")
+      .left_joins(:customer)
+      .left_joins(:account)
+      .includes(photo_attachment: :blob)
       .traceability
-  }
-  scope :profile, lambda {
-    select("#{table_name}.*")
   }
   scope :autocomplete, lambda {
     select(:id, :name)
   }
 
-  scope :birthdays, lambda { |initial_date, final_date|
-    select("#{table_name}.*")
-      .by_birthday(initial_date, final_date)
-      .active(true)
-  }
   scope :by_account_id, ->(account_id) { where(account_id: account_id) }
   scope :by_cod_emp, ->(cod_emp) { where(cod_emp: cod_emp) }
-
-  scope :by_search, lambda { |search|
-    by_name(search).or by_email(search).or by_phone_extension(search).or by_department_name(search).or by_identification_number(search).or by_cpf(search)
-  }
   scope :by_name, lambda { |name|
     where("UNACCENT(#{table_name}.name) ILIKE :name",
           name: "%#{I18n.transliterate(name)}%")
   }
-  scope :by_cpf, lambda { |cpf|
-    where("UNACCENT(#{table_name}.cpf) ILIKE :cpf",
-          cpf: "%#{I18n.transliterate(cpf)}%")
-  }
   scope :by_email, ->(email) { where("UNACCENT(#{table_name}.email) ILIKE UNACCENT(:email)", email: "%#{email}%") }
-  scope :by_identification_number, ->(identification_number) { where(identification_number: identification_number) }
   scope :administrators, -> { where(is_admin: true) }
   scope :account_administrator, -> { where(is_account_admin: true) }
-  scope :not_administrators, -> { where(is_admin: false) }
-  scope :not_current_user, ->(current_user_id) { where.not(id: current_user_id) }
-  scope :not_account_administrator, -> { where.not(is_account_admin: true) }
+  scope :by_phone_extension, lambda { |phone_extension|
+    where("UNACCENT(#{table_name}.phone_extension) ILIKE :phone_extension",
+          phone_extension: "%#{I18n.transliterate(phone_extension)}%")
+  }
+  scope :by_birthday, lambda { |start_birthday, end_birthday = nil|
+    return if start_birthday.nil?
+
+    start_date = Date.parse(start_birthday.to_s)
+    end_date = end_birthday ? Date.parse(end_birthday.to_s) : start_date
+
+    dates = (start_date..end_date).map do |date|
+      "#{date.day}/#{date.month}"
+    end
+
+    where("EXTRACT(DAY FROM #{table_name}.birthday) || '/' || EXTRACT(MONTH FROM #{table_name}.birthday) "\
+          "IN (:dates) AND #{table_name}.dont_show_birthday IS FALSE",
+          dates: dates)
+  }
+
+  scope :with_complementary_changes, lambda {
+    where(changed_complementary_info: true)
+  }
 
   # Callbacks
   before_validation :set_provider,
                     :set_uid
-  before_validation :format_cpf,
-                    :format_rg,
-                    :format_driver_license,
-                    :format_phone,
-                    :format_cellphone
-  before_create :verify_force_change_password
-  before_save :check_boolen_force_change_password
-  before_save :verify_complementary_info
-  after_create :associate_use_terms
-  after_create :associate_default_groups
-  after_save :associate_account_group, :associate_headquarter_group, :associate_department_group
+
+  after_create :send_welcome_mail
 
   # Validations
   validates_presence_of :email, {
     if: :email_required?,
-    message: :need_email_or_cpf
+    message: :need_email
   }
   validates_uniqueness_of :email,
                           allow_blank: true,
@@ -99,21 +126,13 @@ class User < ApplicationRecord
                       with: /\A[^@\s]+@[^@\s]+\z/,
                       allow_blank: true,
                       if: :email_changed?
-
-  validates_format_of :personal_email,
-                      with: /\A[^@\s]+@[^@\s]+\z/,
-                      allow_blank: true,
-                      if: :personal_email_changed?
-
   validates_uniqueness_of :uid,
                           scope: :provider,
                           conditions: -> { where(active: true, deleted_at: nil) }
-
   validates_presence_of :cpf, {
     if: :cpf_required?,
-    message: :need_email_or_cpf
+    message: :need_cpf
   }
-
   validates_uniqueness_of :cpf, allow_blank: true, if: :cpf_changed?
 
   # validates_presence_of :password, if: :password_required?
@@ -132,21 +151,44 @@ class User < ApplicationRecord
                       message: :invalid_special_character,
                       if: -> { password.present? }
 
-  validates_presence_of :account_id, unless: -> { administrator? || integrator? }
-  validates_presence_of :headquarter_id, unless: -> { administrator? || integrator? }
-  validates_presence_of :integration_id, if: -> { integrator? }
+  validates_presence_of :account_id, unless: -> { administrator? }
   validates_uniqueness_of :uuid
   validates :name, presence: true, length: { maximum: 255 }
 
-  validate :cpf_valid
   validate :administrator_restriction
 
-  def valid_solicitation_password(user_solicitation_password: nil)
-    solicitation_password == user_solicitation_password
+  def send_welcome_mail
+    return unless is_new_user
+
+    params = { redirect_url: "#{account.base_url}/alterar-senha", config_name: 'default' }
+    @client_config = params[:config_name]
+
+    @redirect_url = params.fetch(
+      :redirect_url,
+      DeviseTokenAuth.default_password_reset_url
+    )
+
+    ActionMailer::Base.default_url_options[:host] = account.api_base_url
+
+    send_reset_password_instructions(
+      email: email,
+      provider: 'email',
+      redirect_url: @redirect_url,
+      authkey: AUTH_KEY,
+      client_config: params[:config_name],
+      welcome_mail: true
+    )
   end
 
-  def integrator?
-    is_integrator
+  def create_log(description: nil)
+    user_logs.create(
+      {
+        description: description,
+        account_id: account_id,
+        customer_id: customer_id,
+        date: Time.now
+      }
+    )
   end
 
   def administrator?
@@ -155,6 +197,20 @@ class User < ApplicationRecord
 
   def account_administrator?
     is_account_admin
+  end
+
+  def customer_ids
+    (::Contact.by_cpf(cpf).pluck(:customer_id) + [customer_id]).compact
+  end
+
+  def customer?
+    customer_ids.any?
+  end
+
+  def administrator_restriction
+    return unless administrator? && account_id
+
+    errors.add(:base, :cant_have_account)
   end
 
   def user?
@@ -170,57 +226,10 @@ class User < ApplicationRecord
     update_columns(tokens: {})
   end
 
-  def active_directory?
-    username.present?
-  end
-
-  def read_all_notifications
-    notifications.activated.read(false).update_all(read: true)
-
-    ::Chat::TotalNotificationRoomCableJob.perform_now(user: self)
-  end
-
-  def change_password(params)
-    active_directory_login ? active_directory_change_password(params) : device_change_password(params)
-  end
-
-  def device_change_password(params)
-    self.force_change_password = false
-    self.password = params[:password]
-    self.password_confirmation = params[:password_confirmation]
-    save
-  end
-
-  def active_directory_change_password(params)
-    return unless account.active_directory_can_change_password
-
-    @active_directory = ::ActiveDirectory::Connection.new(username: username, password: params[:current_password], account: account, ssl: true)
-
-    return if @active_directory.nil?
-
-    @active_directory.resource
-
-    @active_directory.authenticated? && @active_directory.persisted?
-
-    if @active_directory.change_password(params[:password])
-      errors.add(:base, :taken)
-    else
-      self.force_change_password = false
-    end
-  end
-
   protected
 
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
-  end
-
-  def email_required?
-    cpf.blank?
-  end
-
-  def cpf_required?
-    email.blank?
   end
 
   class << self
@@ -237,31 +246,15 @@ class User < ApplicationRecord
     end
   end
 
+  def email_required?
+    cpf.blank?
+  end
+
+  def cpf_required?
+    email.blank?
+  end
+
   private
-
-  def verify_force_change_password
-    self.force_change_password = account.force_change_password if account.present?
-  end
-
-  def check_boolen_force_change_password
-    self.force_change_password = false if force_change_password.nil?
-  end
-
-  def verify_complementary_info
-    self.changed_complementary_info = true if complementary_fields_changed? && !update_to_integration
-  end
-
-  def complementary_fields_changed?
-    zipcode_changed? ||
-      state_id_changed? ||
-      city_id_changed? ||
-      district_id_changed? ||
-      address_number_changed? ||
-      address_complement_changed? ||
-      driver_license_changed? ||
-      address_changed? ||
-      email_changed?
-  end
 
   def set_provider
     self.provider = if email_without_cpf?
@@ -285,108 +278,5 @@ class User < ApplicationRecord
 
   def email_without_cpf?
     email.present? && cpf.blank?
-  end
-
-  def associate_use_terms
-    ::AssociateUseTermsJob.perform_now(new_user: reload)
-  end
-
-  def administrator_restriction
-    return unless administrator? && (account_id || headquarter_id)
-
-    errors.add(:base, :cant_have_account_or_headquarter)
-  end
-
-  def associate_default_groups
-    associate_account_group account_id
-    associate_headquarter_group headquarter_id
-    associate_department_group department_id
-  end
-
-  def associate_account_group(account_id = nil)
-    return unless saved_change_to_account_id? || account_id
-
-    old_and_new = saved_change_to_account_id || [nil, account_id]
-
-    update_groups_association(::GroupTypeEnum::ACCOUNT,
-                              old_and_new,
-                              ::Account)
-  end
-
-  def associate_headquarter_group(headquarter_id = nil)
-    return unless saved_change_to_headquarter_id? || headquarter_id
-
-    old_and_new = saved_change_to_headquarter_id || [nil, headquarter_id]
-
-    update_groups_association(::GroupTypeEnum::HEADQUARTER,
-                              old_and_new,
-                              ::Headquarter)
-  end
-
-  def associate_department_group(department_id = nil)
-    return unless saved_change_to_department_id? || department_id
-
-    old_and_new = saved_change_to_department_id || [nil, department_id]
-
-    update_groups_association(::GroupTypeEnum::DEPARTMENT,
-                              old_and_new,
-                              ::Department)
-  end
-
-  def update_groups_association(group_type, changes, group_origin)
-    old_id = changes.first
-    new_id = changes.last
-
-    disassociate_from_old_group(old_id, group_type, group_origin) if old_id
-
-    associate_to_new_group(new_id, group_type, group_origin) if new_id
-  end
-
-  def disassociate_from_old_group(old_id, group_type, group_origin)
-    origin = group_origin.find_by(id: old_id)
-    return if origin.nil?
-
-    old_group = origin.groups.activated.find_by(group_type: group_type)
-    return if old_group.nil?
-
-    old_group.group_users.activated.where(user_id: id).destroy_all
-  end
-
-  def associate_to_new_group(new_id, group_type, group_origin)
-    origin = group_origin.find_by(id: new_id)
-
-    new_group = origin.groups.activated.find_by(group_type: group_type)
-
-    return if new_group.nil?
-
-    user_group = new_group.group_users.find_or_initialize_by(user_id: id)
-    user_group.active = true
-    user_group.deleted_at = nil
-    user_group.skip_type_validation = true
-    user_group.save
-  end
-
-  def format_driver_license
-    driver_license&.remove!(/\W/)
-  end
-
-  def format_cpf
-    cpf&.remove!(/\W/)
-  end
-
-  def format_rg
-    rg&.remove!(/\W/)
-  end
-
-  def format_phone
-    phone&.remove!(/\W/)
-  end
-
-  def format_cellphone
-    cellphone&.remove!(/\W/)
-  end
-
-  def cpf_valid
-    errors.add(:cpf, :invalid_format) unless ::CPF.new(cpf)&.valid? || Rails.env.test? || !cpf.present?
   end
 end

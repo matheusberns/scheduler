@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    freight_type_enum:
+      cif: CIF
+      fob: FOB
+      cif_redispatch: CIF Redespacho

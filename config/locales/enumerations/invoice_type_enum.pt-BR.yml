@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    invoice_type_enum:
+      out: Saída
+      in: Entrada

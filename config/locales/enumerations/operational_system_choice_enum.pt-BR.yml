@@ -1,6 +1,0 @@
-pt-BR:
-  enumerations:
-    operational_system_choice_enum:
-      ios: IOS
-      android: Android
-      both: Ambos

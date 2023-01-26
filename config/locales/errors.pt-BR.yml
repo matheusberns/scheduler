@@ -15,9 +15,6 @@ pt-BR:
       unauthorized_access: Você não possui autorização para acessar a área anterior
       already_exist_active: Usuário(s) já adicionado(s) no grupo
       have_associated_users: 'Não é possível excluir %{object_name} com usuários associados'
-      cant_send_notifications: Não foi possivel enviar a notificação para o usuario selecionado
       current_user_being_destroyed: Não é possível excluir você mesmo
       current_user_cant_post: Você não possui permissão para postar nesse espaço
-      current_user_without_employer_number: Você não possui as configurações para esse acesso
-      current_user_without_headquarter: Você não possui uma unidade associada
-      tv_not_have_active_contents: Tv não encontrada
+      current_user_without_employer_number: Você não possui número de cadastro HCM

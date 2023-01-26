@@ -9,8 +9,8 @@ module ImageDimensions
       image_dimensions(photo)
     end
 
-    def file_dimensions(image)
-      image_dimensions(image)
+    def driver_license_dimensions
+      image_dimensions(driver_license_photo)
     end
   end
 
@@ -26,27 +26,17 @@ module ImageDimensions
     }
 
     if image.variable?
-      begin
-        small = image.variant(resize: '275x275').processed
-        medium = image.variant(resize: '550x550').processed
-        larger = image.variant(resize: '1000x1000').processed
+      small = image.variant(resize: '275x275').processed
+      medium = image.variant(resize: '550x550').processed
+      larger = image.variant(resize: '1000x1000').processed
 
-        object.merge!(
-          {
-            small: active_storage_representation(small),
-            medium: active_storage_representation(medium),
-            larger: active_storage_representation(larger)
-          }
-        )
-      rescue StandardError
-        object.merge!(
-          {
-            small: active_storage_blob_path(image),
-            medium: active_storage_blob_path(image),
-            larger: active_storage_blob_path(image)
-          }
-        )
-      end
+      object.merge!(
+        {
+          small: active_storage_representation(small),
+          medium: active_storage_representation(medium),
+          larger: active_storage_representation(larger)
+        }
+      )
     end
 
     object

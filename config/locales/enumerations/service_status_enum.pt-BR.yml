@@ -1,0 +1,5 @@
+pt-BR:
+  enumerations:
+    service_status_enum:
+      in_progress: Em andamento
+      finished: Finalizado

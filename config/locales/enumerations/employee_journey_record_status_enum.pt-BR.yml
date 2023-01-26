@@ -1,6 +1,0 @@
-pt-BR:
-  enumerations:
-    employee_journey_record_status_enum:
-      in_analysis: Em análise
-      approved: Aprovado
-      reproved: Reprovado

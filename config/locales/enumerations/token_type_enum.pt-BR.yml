@@ -1,5 +1,5 @@
 pt-BR:
   enumerations:
     token_type_enum:
-      apnotic: Apnotic (iOS)
+      houston: Houston (iOS)
       firebase: Firebase (Web/Android)

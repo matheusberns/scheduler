@@ -5,21 +5,18 @@ module CheckCurrentPassword
 
   included do
     def validate_current_password
+      return unless changing_password?
+
       object = @user || @current_user
 
-      valid_params_password?(object)
+      return if object.valid_password? params.dig(:user, :current_password)
 
-      if !params.dig(:user, :migration) && params[:user].include?(:current_password)
-        object.errors.add(:current_password, :invalid_current_password) unless object.valid_password? params.dig(:user, :current_password)
-        object.errors.add(:current_password, :uninformed_current_password) if params.dig(:user, :current_password).blank?
-      end
-
-      render_errors_json(object.errors.messages) if object.errors.any?
+      object.errors.add(:current_password, :invalid_current_password)
+      render_errors_json(object.errors.messages)
     end
   end
 
-  def valid_params_password?(object)
-    object.errors.add(:password, :required) if params[:user].include?(:password) && params.dig(:user, :password).blank?
-    object.errors.add(:password_confirmation, :required) if params[:user].include?(:password_confirmation) && params.dig(:user, :password_confirmation).blank?
+  def changing_password?
+    params.dig(:user, :password) && params.dig(:user, :password_confirmation)
   end
 end

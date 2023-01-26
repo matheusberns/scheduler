@@ -10,11 +10,9 @@ module Admins
 
       sign_in_chosen_user
 
-      @account_tools = @resource.account_tools.activated.select("#{Many::AccountTool.table_name}.*").select('tools.tool_code').joins(:tool)
-
-      render_show_json(@resource, Overrides::SessionSerializer, 'user', 200, { account_tools: @account_tools })
+      render_show_json(@resource, Overrides::SessionSerializer, 'user')
     rescue StandardError => e
-      render_error_json(error: e)
+      render_error_json e
     end
 
     private
@@ -35,21 +33,19 @@ module Admins
       @resource = @chosen_user
 
       @token = @resource.create_token
-      @integration_token = SecureRandom.urlsafe_base64(nil, false)
-      @resource.integration_tokens << @integration_token if @resource.integration_tokens.nil?
       @resource.save!
 
       sign_in(:user, @resource, store: false, bypass: false)
     end
 
     def validate_current_user
-      render_error_json(error: I18n.t('errors.messages.is_not_administrator')) unless @current_user.administrator?
+      render_error_json I18n.t('errors.messages.is_not_administrator') unless @current_user.administrator?
     end
 
     def set_chosen_user
       @chosen_user = ::User.activated.find(params[:user_id])
 
-      render_error_json(error: I18n.t('errors.messages.chosen_user_is_administrator')) if @chosen_user.administrator?
+      render_error_json I18n.t('errors.messages.chosen_user_is_administrator') if @chosen_user.administrator?
     end
   end
 end

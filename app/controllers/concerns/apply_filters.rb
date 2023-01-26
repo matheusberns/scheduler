@@ -18,7 +18,6 @@ module ApplyFilters
 
           first_param = params["start_#{param_name}".to_sym]
           last_param = params["end_#{param_name}".to_sym]
-          last_param = params["final_#{param_name}".to_sym] if last_param.nil?
 
           objects = objects.send(scope, first_param, last_param)
           # Booleans

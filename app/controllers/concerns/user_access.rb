@@ -18,9 +18,6 @@ module UserAccess
       accessing_administrator_controller?
     elsif @current_user.account_administrator?
       accessing_account_administrator_controller?
-    elsif @current_user.manager?
-      accessing_manager_controller?
-      accessing_user_controller?
     else
       accessing_user_controller?
     end
@@ -32,16 +29,14 @@ module UserAccess
 
   def accessing_account_administrator_controller?
     set_current_user_account
+    set_customers
     account_admin_controller? || common_controller?
-  end
-
-  def accessing_manager_controller?
-    set_current_user_account
-    manager_controller?
   end
 
   def accessing_user_controller?
     set_current_user_account
+    set_customers
+    user_controller?
   end
 
   def admin_controller?
@@ -52,29 +47,18 @@ module UserAccess
     accessed_module == 'account_admins'
   end
 
-  def manager_controller?
-    accessed_module == 'managers'
-  end
-
   def user_controller?
-    not_admin_or_account_admin_controller? || not_manager_controller? || allowed_actions?
+    not_admin_or_account_admin_controller? || allowed_actions?
   end
 
   def not_admin_or_account_admin_controller?
-    !admin_controller?
-  end
-
-  def not_manager_controller?
-    !manager_controller?
+    (!admin_controller? && !account_admin_controller?)
   end
 
   def allowed_actions?
-    (%w[account_admins/headquarters
-        account_admins/shifts
+    (%w[account_admins/customers
         account_admins/spaces
-        account_admins/polls
-        account_admins/spaces/subspaces
-        account_admins/headquarters/departments].include?(accessed_path) &&
+        account_admins/spaces/subspaces].include?(accessed_path) &&
       accessed_action == 'autocomplete') ||
       (%w[account_admins/widgets
           account_admins/tools].include?(accessed_path) &&
@@ -93,6 +77,7 @@ module UserAccess
     %w[current_users
        homepages
        enumerations
+       integrations
        currency_quotations
        regions].include? accessed_module
   end
@@ -113,7 +98,11 @@ module UserAccess
     @account = ::Account.activated.find(@current_user.account_id)
   end
 
+  def set_customers
+    @customer_ids = @current_user.customer_ids
+  end
+
   def render_unauthorized_access
-    render_error_json(status: 403)
+    render_error_json nil, 403
   end
 end

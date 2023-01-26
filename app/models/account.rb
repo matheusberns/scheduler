@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  attr_accessor :destroying, :config_account, :timeout_in_to_all_users, :logout_by_tab_closed_to_all_users
+  attr_accessor :portal_account
 
   # Concerns
 
@@ -9,16 +9,42 @@ class Account < ApplicationRecord
   has_one_attached :logo
   has_one_attached :menu_background
   has_one_attached :toolbar_background
-  has_one_attached :active_directory_ca_file
 
   # Enumerations
 
   # Belongs_to associations
 
   # Has_many associations
+  has_many :customers, class_name: '::Customer', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
   has_many :users, class_name: '::User', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :notifications, class_name: '::Notification', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :notification_tokens, class_name: '::NotificationToken', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :payment_conditions, class_name: '::PaymentCondition', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :transporters, class_name: '::Transporter', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :orders, class_name: '::Order', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :order_items, class_name: '::OrderItem', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :integrations, class_name: '::Integration', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :invoices, class_name: '::Invoice', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :billings, class_name: '::Billing', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :services, class_name: '::Service', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :installments, class_name: '::Installment', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :order_ratings, class_name: '::OrderRating', inverse_of: :account, foreign_key: :account_id
+  has_many :user_logs, class_name: '::UserLog', inverse_of: :account, foreign_key: :account_id
+  has_many :products, class_name: '::Product', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :product_derivations, class_name: '::ProductDerivation', inverse_of: :account, foreign_key: :account_id
+  has_many :budgets, class_name: '::Budget', inverse_of: :account, foreign_key: :account_id
+  has_many :budget_items, class_name: '::BudgetItem', inverse_of: :account, foreign_key: :account_id
+  has_many :representatives, class_name: '::Representative', inverse_of: :account, foreign_key: :account_id
+  has_many :contacts, class_name: '::Contact', inverse_of: :account, foreign_key: :account_id
+  has_many :external_services, class_name: '::ExternalService', inverse_of: :account, foreign_key: :account_id
+  has_many :web_services, class_name: '::WebService', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :web_service_reports, class_name: '::WebServiceReport', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
 
   # Many-to-many associations
+  has_many :order_invoices, class_name: '::Many::OrderInvoice', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :all_account_tools, class_name: 'Many::AccountTool', foreign_key: :account_id, dependent: :destroy
+  has_many :account_tools, -> { activated }, class_name: 'Many::AccountTool', inverse_of: :account, foreign_key: :account_id, dependent: :destroy
+  has_many :tools, through: :account_tools
 
   # Has-many through
 
@@ -47,18 +73,18 @@ class Account < ApplicationRecord
   scope :by_uuid, ->(uuid) { where("CAST(#{table_name}.uuid as TEXT) ILIKE :uuid", uuid: "%#{uuid}%") }
 
   # Callbacks
-  before_validation :find_config_account
+  before_validation :find_portal_account
   after_create :default_setup
   after_create_commit :set_logo_from_account
-  after_save_commit :set_update_users
 
   # Validations
   validates :name, presence: true, length: { maximum: 255 }
   validates_uniqueness_of :uuid, conditions: -> { activated }
   validates_presence_of :base_url
+  validates_uniqueness_of :base_url, conditions: -> { activated }
   validates_numericality_of :timeout_in, only_integer: true, less_than_or_equal_to: 9999, allow_nil: true
   validates :smtp_user, :smtp_password, :smtp_host, :smtp_email,
-            :imap_host, :imap_user, :imap_password, :active_directory_host,
+            :active_directory_host,
             :active_directory_base, :active_directory_domain,
             length: { maximum: 255 }
   validates :active_directory_host,
@@ -73,68 +99,35 @@ class Account < ApplicationRecord
     is_active_directory
   end
 
-  def destroy
-    self.destroying = true
-    super
-  end
-
-  def group_default_permissions(tool_id: nil, active: true)
-    ::Permission.where(tool_id: tool_id).each do |permission|
-      if active
-        groups.by_group_type(::GroupTypeEnum::ADMIN).each do |group|
-          new_permission = ::Many::GroupPermission.by_group_id(group.id).find_or_initialize_by({ permission_id: permission.id, account_id: id })
-          new_permission.active = true
-          new_permission.deleted_at = nil
-          new_permission.save
-        end
-      else
-        permission.permission_groups.by_group_id(group_ids).update_all(active: false, deleted_at: Time.now)
-      end
-    end
-  end
-
-  def send_mail(received_email: nil)
-    return unless received_email.present?
-
-    Mailer.test_send_email(account: self, received_email: received_email).deliver_later
-  end
-
   private
 
-  def find_config_account
+  def find_portal_account
     return if Rails.env.test?
 
     account_request = ::Accounts::AccountConsult.new(uuid: uuid).find
     return unless account_request[:success]
 
-    self.config_account = account_request[:account]
+    self.portal_account = account_request[:account]
 
-    self.name = config_account[:social_reason]
-    self.project_name = config_account.dig(:joinin_config, :project_name)
-    self.base_url = config_account.dig(:joinin_config, :base_url_web)
-    self.api_base_url = config_account.dig(:joinin_config, :base_url)
+    self.name = portal_account[:company_name]
+    self.api_base_url = portal_account.dig(:portal_config, :base_url)
+    self.base_url = portal_account.dig(:portal_config, :base_url_web)
   end
 
   def check_uuid
-    errors.add(:uuid, :invalid) unless config_account.present? || Rails.env.test?
+    errors.add(:uuid, :invalid) unless portal_account.present? || Rails.env.test?
   end
 
   def set_logo_from_account
-    return unless config_account.present?
-    return unless config_account.dig(:image, :url).present?
+    return unless portal_account.present?
+    return unless portal_account.dig(:image, :url).present?
 
-    full_url = ACCOUNTS_URL + config_account.dig(:image, :url)
+    full_url = VELOW_ACCOUNTS_URL + portal_account.dig(:image, :url)
     downloaded_image = URI.parse(full_url).open
     logo.attach(io: downloaded_image, filename: Time.now.iso8601.to_s)
   end
 
   def default_setup
-    ::AccountDefaultSetupJob.perform_now(reload) unless Rails.env.test?
-  end
-
-  def set_update_users
-    return if !timeout_in_to_all_users && !logout_by_tab_closed_to_all_users
-
-    ::Users::ConfigByAccountJob.perform_now(account: self, timeout_in_to_all_users: timeout_in_to_all_users, logout_by_tab_closed_to_all_users: logout_by_tab_closed_to_all_users)
+    ::AccountDefaultSetupJob.perform_now(self) unless Rails.env.test?
   end
 end

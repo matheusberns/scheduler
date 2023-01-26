@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Overrides
   class PasswordsController < DeviseTokenAuth::PasswordsController
     include Renders
@@ -9,13 +7,15 @@ module Overrides
       return render_create_error_missing_email unless resource_params[:email]
 
       @email = get_case_insensitive_field_from_resource_params(:email)
-      @resource = find_resource(:uid, @email)
+      @resource = resource_class.dta_find_by(email: @email)
 
       set_default_url_to_email
 
       if @resource
         yield @resource if block_given?
         if @resource.account.try(:smtp_email)
+          @client_config = params[:config_name] ||= 'default'
+
           @resource.send_reset_password_instructions(
             email: @email,
             provider: 'email',
@@ -69,6 +69,33 @@ module Overrides
       end
     end
 
+    def update
+      # make sure user is authorized
+      if require_client_password_reset_token? && resource_params[:reset_password_token]
+        @resource = resource_class.with_reset_password_token(resource_params[:reset_password_token])
+        return render_update_error_unauthorized unless @resource
+
+        @token = @resource.create_token
+      else
+        @resource = set_user_by_token
+      end
+
+      return render_update_error_unauthorized unless @resource
+
+      # ensure that password params were sent
+      return render_update_error_missing_password unless password_resource_params[:password] && password_resource_params[:password_confirmation]
+
+      if @resource.send(resource_update_method, password_resource_params)
+        @resource.allow_password_change = false if recoverable_enabled?
+        @resource.save!
+
+        yield @resource if block_given?
+        render_update_success
+      else
+        render_update_error
+      end
+    end
+
     def render_create_error_missing_email
       render json: { errors: { base: I18n.t('.devise_token_auth.passwords.missing_email') } }, status: 401
     end
@@ -77,8 +104,8 @@ module Overrides
       render json: { errors: { base: I18n.t('.devise_token_auth.passwords.user_not_found', email: resource_params[:email]) } }, status: 401
     end
 
-    def render_config_not_found
-      render json: { errors: { base: I18n.t('.devise_token_auth.passwords.config_not_found', email: resource_params[:email]) } }, status: 401
+    def render_edit_error
+      render json: { errors: { base: I18n.t('.devise_token_auth.passwords.reset_password_token') } }, status: 401
     end
 
     def render_create_error(errors)

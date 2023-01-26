@@ -19,6 +19,8 @@ Devise.setup do |config|
   # Keys used when authenticating a user.
   config.authentication_keys = %i[email login]
 
+  config.reset_password_within = 30.days
+
   # Configure the class responsible to send e-mails.
   config.mailer = 'Overrides::Mailer'
 end

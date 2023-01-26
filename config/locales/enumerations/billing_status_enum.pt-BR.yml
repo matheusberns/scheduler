@@ -1,0 +1,9 @@
+
+pt-BR:
+  enumerations:
+    billing_status_enum:
+      open: Em aberto
+      late: Vencido
+      paid: Liquidado
+      cancel: Cancelado
+      open_late: Em aberto e vencido

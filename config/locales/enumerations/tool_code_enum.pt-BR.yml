@@ -1,36 +1,16 @@
 pt-BR:
   enumerations:
     tool_code_enum:
-      birthday: Aniversários
-      payroll: Folha de pagamento
-      employment_bond: Vínculo empregatício
-      report_income: Informe de rendimentos
-      vacation_balance: Saldo de férias
-      vacation_receipt: Recibos de férias
-      vacation_warning: Aviso de férias
-      point_mirror: Apuração do ponto
-      point_card: Cartão ponto
-      bank_hour: Banco de horas
-      profit_sharing: Folha de P.P.R.
-      christmas_bonus: Folha de 13º salário
-      menu: Cardápios
-      poll: Enquetes
-      corporate_tv: TV corporativa
-      useful_website: Sites úteis
-      unimed: Unimed
-      uniodonto: Uniodonto
-      car_pool: Caronas
-      car: Reserva de veículos
-      cotation: Cotações,
-      daily_menu: Cardápios do dia,
-      recent_birthday: Aniversários recentes
-      solicitation: Solicitações
-      meeting_room: Salas de reunião
-      table: Reserva de mesas
-      comment_moderation: Moderação de comentários
-      local: Reserva de locais
-      company_birthday: Aniversários de empresa
-      recent_company_birthday: Aniversários recentes de empresa
-      ecommerce: Ecommerce
-      digital_magazine: Revista digital
-      calendar: Calendário
+      list_order: Lista de pedidos
+      pdf_order: PDF pedido
+      xls_order: XLS pedido
+      dashboard_chart_financials: Gráfico dashboard financeiro
+      dashboard_chart_orders: Gráfico dashboard pedidos
+      list_note: Lista de notas
+      danfe_note: Danfe da nota
+      xml_note: XML da nota
+      list_financial: Lista de Financeiros
+      billet: Boleto
+      create_service: Novo Serviço
+      budget: Orçamento
+      news: Novidades

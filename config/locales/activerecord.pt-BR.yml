@@ -10,126 +10,12 @@ pt-BR:
       city:
         one: &city Cidades
         other: &cities Cidades
-      contact:
-        one: &contact Contato
-        other: &contacts Contatos
-      comment:
-        one: &comment Comentário
-        other: &comments Comentários
-      currency_quotation:
-        one: &currency_quotation Cotação de moeda
-        other: &currency_quotation Cotações de moeda
-      birthday_card:
-        one: &birthday_card Cartão de aniversário
-        other: &birthday_cards Cartões de aniversário
-      company_birthday_card:
-        one: &company_birthday_card Cartão de aniversário de empresa
-        other: &company_birthday_card Cartões de aniversário de empresa
-      department:
-        one: &department Departamento
-        other: &departments Departamentos
-      dish:
-        one: &dish Prato
-        other: &dishes Pratos
-      emergency_contact:
-        one: &emergency_contact Contato de emergência
-        other: &emergency_contacts Contatos de emergência
-      group:
-        one: &group Grupo
-        other: &groups Grupos
-      group_permission:
-        one: &group_permission Grupo/Permissão
-        other: &group_permissions Grupos/Permissões
-      integration:
-        one: &integration Integração
-        other: &integrations Integrações
-      license_plate:
-        one: &license_plate Placa do veículo
-        other: &license_plates Placas dos veículos
-      like:
-        one: &like Curtida
-        other: &likes Curtidas
-      meal:
-        one: &meal Refeição
-        other: &meals Refeições
-      meal_rating:
-        one: &meal_rating Avaliação da refeição
-        other: &meal_ratings Avaliações das refeições
-      meal_plan:
-        one: &meal_plan Cardápio
-        other: &meal_plans Cardápios
-      meal_plan_headquarter:
-        one: &meal_plan_headquarter Cardápio/Unidade
-        other: &meal_plan_headquarters Cardápios/Unidades
-      meal_dish:
-        one: &meal_dish Refeição/Prato
-        other: &meal_dishes Refeições/Pratos
-      notification:
-        one: &notification Notificação
-        other: &notifications Notificações
-      notification_token:
-        one: &notification_token Token de notificação
-        other: &notification_tokens Tokens de notificação
-      poll:
-        one: &poll Enquete
-        other: &polls Enquetes
-      poll_option:
-        one: &poll_option Opção da enquete
-        other: &poll_options Opções da enquete
-      post:
-        one: &post Publicação
-        other: &posts Publicações
-      permission:
-        one: &permission Permissão
-        other: &permissions Permissões
       state:
         one: &state Estado
         other: &states Estados
-      shift:
-        one: &shift Turno
-        other: &shifts Turnos
-      space:
-        one: &space Espaço
-        other: &spaces Espaços
-      space_group:
-        one: &space_group Espaço/Grupo
-        other: &space_groups Espaços/Grupos
-      space_tool:
-        one: &space_tool Espaço/Ferramenta
-        other: &space_tools Espaços/Ferramentas
-      space_widget:
-        one: &space_widget Espaço/Widget
-        other: &space_widgets Espaços/Widgets
-      tool:
-        one: &tool Ferramenta
-        other: &tools Ferramentas
-      use_term:
-        one: &use_term Termo de uso
-        other: &use_terms Termos de uso
       user:
         one: &user Usuário
         other: &users Usuários
-      user_use_term:
-        one: &user_use_term Usuário/Termo de uso
-        other: &user_use_terms Usuário/Termos de uso
-      user_group:
-        one: &user_group Usuário/Grupo
-        other: &user_groups Usuarios/Grupos
-      headquarter:
-        one: &headquarter Unidade
-        other: &headquarters Unidades
-      web_service:
-        one: &web_service Web service
-        other: &web_services Web services
-      web_service_report:
-        one: &web_service_report Relatório de web service
-        other: &web_service_reports Relatórios de web service
-      widget:
-        one: &widget Widget
-        other: &widgets widgets
-      scholarship:
-        one: &scholarship Bolsa de estudo
-        other: &scholarships Bolsas de estudo
     attributes:
       account:
         name: Nome
@@ -143,149 +29,13 @@ pt-BR:
         smtp_password: Senha SMTP
         smtp_host: Host SMTP
         smtp_email: E-mail SMTP
-        mandatory_comment: Avaliação com nota negativa exigir comentário
         users_timeout: Deslogar usuários
         timeout_in: Deslogar usuários em
-        imap_host: Host IMAP
-        imap_port: Porta IMAP
-        imap_user: Usuário IMAP
-        imap_password: Senha IMAP
-        imap_execution_max_time: Tempo máximo para recebimento do documento
-        imap_execution_interval_time: Intervalo de tempo entre capturas no e-mail (em minutos)
         uuid: UUID
-      account_tool:
-        tool: *tool
-        tool_id: *tool
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-      equipment_registration:
-        equipment_type: Tipo do equipamento
-        brand: Marca
-        model: Modelo
-        serial_number: Número de Série
-        operational_system: Sistema Operacional
-        warranty: Garantia
-        active_value: Valor do Ativo
       city:
         name: Nome
         state_id: *state
         state: *state
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-      contact:
-        name: Nome
-        email: E-mail
-        contact_number: Número
-        contact_type: Tipo de contato
-        account: *account
-        account_id: *account
-        uuid: UUID
-      comment:
-        user: *user
-        user_id: *user
-        commentable_type: Tipo comentário
-        commentable_id: Comentário
-        comment: Comentário
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado por
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-        uuid: UUID
-      currency_quotation:
-        currency: Moeda
-        quotation: Cotação
-        date_quotation: Data da cotação
-        updated_quotation: Cotação alterada
-        uuid: UUID
-        created_at: Criado em
-        updated_at: Alterado em
-      birthday_card:
-        account_id: *account
-        account: *account
-        uuid: UUID
-      company_birthday_card:
-        account_id: *account
-        account: *account
-        uuid: UUID
-      department:
-        name: Nome
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-        headquarter: *headquarter
-        headquarter_id: *headquarter
-        uuid: UUID
-      dish:
-        name: Nome
-        includes_gluten: Possui gluten
-        includes_lactose: Possui Lactose
-        includes_sugar: Possui açucar
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-        uuid: UUID
-      emergency_contact:
-        name: Nome
-        phone: Telefone
-        relationship: Relação
-        user: *user
-        user_id: *user
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-        headquarter: *headquarter
-        headquarter_id: *headquarter
-        uuid: UUID
-      group:
-        name: Nome
-        group_ldap: LDAP
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        group_type: Tipo do grupo
-        department: *department
-        department_id: *department
-        account: *account
-        account_id: *account
-        headquarter: *headquarter
-        headquarter_id: *headquarter
-        uuid: UUID
-      group_permission:
-        group: *group
-        group_id: *group
-        permission: *permission
-        permission_id: *permission
         created_by_id: Criado por
         updated_by_id: Editado por
         active: Ativo
@@ -306,217 +56,6 @@ pt-BR:
         integration_type: Tipo da integração
         remote_ip: IP's liberados
         uuid: UUID
-      license_plate:
-        plate: Placa
-        user: *user
-        user_id: *user
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletedo em
-        created_at: Criado em
-        updated_at: Editado em
-      like:
-        user: *user
-        user_id: *user
-        likeable_type: Tipo da curtida
-        likeable_id: Curtida
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-        uuid: UUID
-      meal:
-        meal_plan: *meal_plan
-        meal_plan_id: *meal_plan
-        name: Nome
-        initial_hour: Horário de inicio
-        final_hour: Horário de fim
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        active: Ativo
-        uuid: UUID
-      meal_rating:
-        account: *account
-        account_id: *account
-        meal: *meal
-        meal_id: *meal
-        rating: Avaliação
-        commentary: Comentário
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        active: Ativo
-        uuid: UUID
-      meal_plan:
-        account: *account
-        account_id: *account
-        meal_plan_date: Dia
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        active: Ativo
-        uuid: UUID
-      meal_plan_headquarter:
-        meal_plan: *meal_plan
-        meal_plan_id: *meal_plan
-        headquarter: *headquarter
-        headquarter_id: *headquarter
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        active: Ativo
-        uuid: UUID
-      meal_dish:
-        meal: *meal
-        meal_id: *meal
-        dish: *dish
-        dish_id: *dish
-        especial_dish: Prato especial
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        active: Ativo
-        uuid: UUID
-      notification:
-        title: Título
-        message: Mensagem
-        read: Lido
-        notification_type: Tipo
-        notification_origin: Origem
-        notifiable_type: Notificável
-        notifiable_id: Notificável
-        user: *user
-        user_id: *user
-        account: *account
-        account_id: *account
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-      notification_token:
-        token: Token
-        token_type: Tipo
-        user: *user
-        user_id: *user
-        account: *account
-        account_id: *account
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        uuid: UUID
-      poll:
-        name: Nome
-        description: Descrição
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        uuid: UUID
-      poll_option:
-        name: Nome
-        sequency: Sequência
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        uuid: UUID
-      post:
-        title: Título
-        description: Descrição
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        publish: Publicado
-        start_date: Data inicial
-        end_date: Data final
-        url: URL
-        highlight: Destaque
-        space: *space
-        space_id: *space
-        post_date: Data
-        subspace: *space
-        subspace_id: *space
-        youtube_url: Youtube link
-        account: *account
-        account_id: *account
-        uuid: UUID
-      permission:
-        name: Nome
-        code: Código
-        module_type: Tipo do módulo
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-      scholarship:
-        account_id: *account
-        name: Nome
-        status: Status
-        description: Descrição
-        start_registration_period: Início do período de inscrição
-        end_registration_period: Fim do período de inscrição
-        notify_enrollment_day: Notificar o dia da inscrição
-        notify_day_before_enrollment_end: Notificar um dia antes do fim das inscrições
-        generate_scholarship_post_when_change_status: Gerar um post da bolsa de estudo quando o status mudar
-        uuid: UUID
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-      scholarship_user:
-        account_id: *account
-        scholarship_id: *scholarship
-        user_id: *user
-        status: Status
-        description: Descrição
-        course: Curso
-        level: Nível
-        education_institution: Instituição de ensino
-        city: Cidade
-        course_start_date: Data de início do curso
-        course_duration: Duração do curso
-        monthly_fee: Valor da mensalidade
-        refund_percentage: Porcentagem de reembolso
-        refund_value: Valor de reembolso
-        enrooled: Matriculado
-        uuid: UUID
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
       state:
         uf: UF
         country: Pais
@@ -526,100 +65,6 @@ pt-BR:
         deleted_at: Deletado em
         created_at: Criado em
         updated_at: Editado em
-      shift:
-        code: Código
-        name: Nome
-        lunch_time_start: Inicio horário do almoço
-        lunch_time_end: Fim horário de almoço
-        work_time_start: Inicio horário de trabalho
-        work_time_end: Fim horário de trabalho
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-      space:
-        name: Nome
-        icon: Ícone
-        icon_color: Cor do ícone
-        background_color: Cor de fundo
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        active: Ativo
-        slug: Slug
-        is_home: É ínicio
-        space_order: Sequência
-        is_tactic: É tactic
-        parent: *space
-        parent_id: *space
-        only_admin: Somente administrador
-        all_see: Todos veêm
-        all_post: Todos postam
-        space_type: Tipo
-        tool: *tool
-        tool_id: *tool
-        account: *account
-        account_id: *account
-        headquarter: *headquarter
-        headquarter_id: *headquarter
-        uuid: uuid
-      space_group:
-        can_post: Pode postar
-        space: *space
-        space_id: *space
-        group: *group
-        group_id: *group
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        uuid: UUID
-      space_widget:
-        space: *space
-        space_id: *space
-        widget: *widget
-        widget_id: *widget
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        order_index: Sequência
-        uuid: UUID
-      space_tool:
-        space: *space
-        space_id: *space
-        tool: *tool
-        tool_id: *tool
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-      tool:
-        name: Nome
-        slug: Slug
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        tool_code: Código
-        icon: Icone
-        tool_type: Tipo
-        module_type: Módulo
-        uuid: UUID
       user:
         provider: Devise provider
         uid: Devise uid
@@ -642,7 +87,6 @@ pt-BR:
         created_at: Criado em
         updated_at: Editado em
         is_admin: É administrador
-        birthday: Aniversário
         address: Endereço
         license_plate: Placa
         driver_license: CNH
@@ -661,8 +105,6 @@ pt-BR:
         photo_updated_at: Foto editada em
         cod_emp: Código da empresa
         cod_fil: Código da unidade
-        department_id: *department
-        department: *department
         show_intro: Mostrar intro
         shift_id: Turno
         godfather_id: Padrinho
@@ -676,12 +118,14 @@ pt-BR:
         driver_license_photo_content_type: CNH tipo da foto
         driver_license_photo_file_size: CNH tamanho da foto
         driver_license_photo_updated_at: CNH foto editada em
+        lunch_time_start: Inicio horário do almoço
+        lunch_time_end: Fim horário de almoço
+        work_time_start: Inicio horário de trabalho
+        work_time_end: Fim horário de trabalho
         is_account_admin: É administrador da conta
-        identification_number: Número do cadastro
         last_request_at: Última requisição
         timeout_in: Deslogar em (minutos)
         original_name: Nome original
-        dont_show_birthday: Não mostrar aniversário
         account_id: *account
         account: *account
         uuid: UUID
@@ -690,258 +134,22 @@ pt-BR:
         allow_password_change: Liberado troca de senha
         remember_created_at: Lembrar criado em
         tokens: Tokens
-        headquarter_id: *headquarter
-        headquarter: *headquarter
-        integration_id: *integration
-        integration: *integration
-      user_use_term:
-        accept: Aceito
-        user: *user
-        user_id: *user
-        use_term: *use_term
-        use_term_id: *use_term
-      use_term:
-        title: Título
-        text: Texto
-        account: *account
-        account_id: *account
-        uuid: UUID
-      user_group:
-        user: *user
-        user_id: *user
-        group: *group
-        group_id: *group
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        uuid: UUID
-      headquarter:
-        name: Nome
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deleteado em
-        created_at: Criado em
-        updated_at: Editado em
-        cod_fil_erp: Código unidade ERP
-        cod_emp_erp: Código empresa ERP
-        account: *account
-        account_id: *account
-        uuid: UUID
-        social_reason: Razão social
-      web_service:
-        name: Nome
-        url_base: URL base
-        wsdl: WSDL
-        user: Usuário
-        password: Senha
-        web_service_type: Tipo
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-        uuid: UUID
-      web_service_report:
-        code: Código
-        description: Descrição
-        input_variables: Variáveis de entrada
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        account: *account
-        account_id: *account
-        web_service: *web_service
-        web_service_id: *web_service
-        uuid: UUID
-      widget:
-        name: Nome
-        icon: Icone
-        widget_type: Tipo
-        created_by_id: Criado por
-        updated_by_id: Editado por
-        active: Ativo
-        deleted_at: Deletado em
-        created_at: Criado em
-        updated_at: Editado em
-        url_api: URL Api
-        url_front: URL Front
-        cookie: Cookie
-        can_scroll: Pode rolar
-        uuid: UUID
-        account: *account
-        account_id: *account
     errors:
       models:
-        attendance:
-          attributes:
-            base:
-              only_attendant_can_change_responsible: Somente o atendente pode alterar o responsável  do atendimento
-              only_attendant_can_change_status: Somente o atendente pode alterar a situação do atendimento
-              only_attendant_can_change_attendance_category: Somente o atendente pode alterar a categoria do atendimento
-              only_attendant_can_change_attendance_priority: Somente o atendente pode alterar a prioridade do atendimento
-        attendance_category:
-          attributes:
-            base:
-              has_attendance_category: Não é possível remover uma categoria superior de outra categoria
-              attendance_category_cannot_be_her_own_parent: Não é possível cadastrar a categoria como superior de si mesma
-        hour_bank:
-          attributes:
-            base:
-              start_date_higher_than_final_date: Data inicial deve ser menor ou igual a data final
-              start_date_lower_than_current_date: Data inicial deve ser maior ou igual a data atual
-              already_has_hour_bank: Já existe um banco de horas cadastrado neste período
-        scholarship_user:
-          attributes:
-            base:
-              reprove_scholarship_user_error: Só é possível reprovar um candidato se o mesmo estiver com status de pendente
-              approve_scholarship_user_error: Só é possível aprovar um candidato se o mesmo estiver com status de pendente
-        scholarship_proof:
-          attributes:
-            base:
-              upload_proof_error: Só é possível fazer o upload do comprovante se o candidato estiver aprovado na bolsa de estudo
-        scholarship_user_transfer:
-          attributes:
-            base:
-              reprove_scholarship_user_transfer_error: Só é possível reprovar a transferência de um candidato se o mesmo estiver com status de pendente
-              approve_scholarship_user_transfer_error: Só é possível aprovar a transferência de um candidato se o mesmo estiver com status de pendente
-        scholarship_user_proof:
-          attributes:
-            base:
-              approve_scholarship_user_proof_error: Só é possível aprovar um comprovante que está em análise
-              reprove_scholarship_user_proof_error: Só é possível reprovar um comprovante que está em análise
-        reservation:
-          attributes:
-            base:
-              already_has_reservation: Já existe uma reserva para este período de uso com esse veículo, altere o veículo ou a data da reserva e tente novamente
-              start_hour_lower_than_final_hour: Hora inicial deve ser maior que a hora final
-              start_date_higher_than_final_date: Data inicial deve ser menor ou igual a data final
-              start_date_lower_than_current_date: Data inicial deve ser maior ou igual a data atual
-              approved_withdrawn_error: Não é possível retirar o carro para uma reserva cancelada
-              withdrawn_returned_error: Não é possível devolver o carro em uma reserva onde o carro ainda não foi retirado
-              canceled_withdrawn_returned_error: Não é possível cancelar uma reserva onde o carro foi retirado ou quando a mesma estiver concluída
-              final_km_lower_than_start_km: Quilometragem final deve ser maior que a quilometragem inicial
-              check_in_error: Não é permitido realizar check-in em uma reserva cancelada ou concluída
-              reservation_canceled_error: Não é permitido cancelar uma reserva onde foi realizado o check-in ou quando a mesma estiver concluída
-              concluded_error: Não é permitido concluir uma reserva sem ter sido realizado o check-in
-              waiting_approve_error: Não é possível aprovar uma reserva que está reprovada ou cancelada
-              waiting_reproved_error: Não é possível reprovar uma reserva que já foi aprovada ou cancelada
-              waiting_canceled_error: Não é possível cancelar uma reserva que já foi reprovada ou que já teve o check-in feito
-              approved_check_in_error: Não é possível fazer check-in para uma reserva que não foi aprovada
-              check_in_check_out_error: Não é possível fazer check-out para uma reserva onde o check-in ainda não foi feito
-              start_km_lower_than_car_mileage: Quilometragem inicial deve ser igual ou maior que a quilometragem atual do veículo
-              final_km_lower_than_car_mileage: Quilometragem final deve ser maior que a quilometragem do veículo cadastrada na retirada da reserva
-              start_hour_lower_than_time_now: Hora inicial da reserva deve ser maior que a hora atual
-              canceled_error: Somente é possível cancelar uma reserva que ainda está em aberta
-        birthday_card:
-          attributes:
-            base:
-              image_is_not_square: Imagem deve ter sua altura e largura iguais (quadrada)
-              image_dimension_invalid: Imagem deve ter no máximo 1200px
-        company_birthday_card:
-          attributes:
-            base:
-              image_is_not_square: Imagem deve ter sua altura e largura iguais (quadrada)
-              image_dimension_invalid: Imagem deve ter no máximo 1200px
         account:
           attributes:
             uuid:
-        comment:
+        budget_items:
           attributes:
             base:
-              cant_answer_comment_answer: Não é possível responder a resposta do comentário
-              only_pending_can_disapprove: Apenas comentário pendente pode ser reprovado
-              only_pending_can_approve: Apenas comentário pendente pode ser aprovado
-        headquarter:
-          attributes:
-            cnpj:
-              invalid_format: CNPJ inválido
-        group:
-          attributes:
-            base:
-              unauthorized_group_type: Ação não permitida para esse tipo de grupo
-        poll:
-          attributes:
-            base:
-              false_publish: Não foi possivel publicar a enquete
-              not_allow_published: Não é permitido publicar enquente com menos de duas opções
-        post:
-          attributes:
-            base:
-              invalid_content_type: Formato do arquivo inválido
-              without_notify_permission: Você não possui permissão para publicação notificada no espaço informado
-              without_fixed_permission: Você não possui permissão para publicação fixada no espaço informado
-              unique_fixed: 'O espaço %{space_name} já possui uma publicação fixada'
-        event:
-          attributes:
-            base:
-              open_enrollments_status_error: Só é possível abrir as incrições quando a situação estiver em digitação
-              reopen_event_status_error: Só é possível abrir as incrições quando a situação estiver em digitação
-              cancel_event_status_error: Não é possível cancelar um evento que está cancelado ou finalizado
-              finish_event_status_error: Só é possível finalizar uma bolsa caso a mesma esteja em análise de candidatos
-              reopen_enrollments_status_error: Só é possível alterar a data de período de inscrição caso esteja em análise de candidatos
-              start_date_lower_end_date: Data final do evento deve ser igual ou maior que a data inicial
-              start_period_date_lower_end_period_date: Data final do período das inscrições deve ser igual ou maior que a data inicial
-              start_period_date_higher_than_event_start: Data inicial do período de inscrições deve ser menor que a data de início do evento
-              end_period_date_higher_than_event_start: Data final do período de inscrições deve ser menor que a data de início do evento
-        event_registration:
-          attributes:
-            base:
-              participant_cpf_required: CPF do participante é obrigatório
-              does_not_allow_participant: Este evento não permite participantes
-              invalid_event_status_to_register: Evento não esta com inscrições abertas
-              cant_confirm_registration: Não foi possível confirmar a inscrição do participante
-              cant_confirm_participation: Não foi possível confirmar a participação do participante
-              cant_desconfirm_registration: Não foi possível desconfirmar a inscrição do participante
-              cant_desconfirm_participation: Não foi possível desconfirmar a participação do participante
-            participant_cpf:
-              invalid_format: CPF inválido
-        scholarship:
-          attributes:
-            base:
-              open_enrollments_status_error: Só é possível abrir as incrições quando a situação estiver em digitação
-              candidate_analysis_scolarship_status_error: Só é possível alterar a situação da bolsa para análise de candidato se estiver com as inscrições abertas
-              cancel_scolarship_status_error: Não é possível cancelar uma bolsa finalizada
-              finish_scolarship_status_error: Só é possível finalizar uma bolsa caso a mesma esteja em análise de candidatos
-              reopen_enrollments_status_error: Só é possível alterar a data de período de inscrição caso esteja em análise de candidatos
-              start_period_date_lower_end_period_date: Data final do período das inscrições deve ser igual ou maior que a data inicial
-        space:
-          attributes:
-            base:
-              start_space_cannot_be_removed: Não é possível remover o espaço início
-        survey:
-          attributes:
-            base:
-              cancel_survey_status_error: Não é possível cancelar uma pesquisa que está cancelada ou finalizada
-              finish_survey_status_error: Não foi possível finalizar a pesquisa
-              publish_survey_status_error: Não foi possível publicar a pesquisa
-              start_date_lower_end_date: Data final da pesquisa deve ser igual ou maior que a data inicial
-              net_asks_to_publish: Para publicar e necessário cadastrar perguntas
-        survey_ask_answer:
-          attributes:
-            base:
-              answer_is_required: Resposta é obrigatória
+              multiple_quantity: "Este item aceita somente valores múltiplos para sua quantidade, informe: '%{example}'"
         user:
           attributes:
             password:
+              cant_have_account: Usuário administrador não pode ter conta
               invalid_case_format: Você precisa informar ao menos uma letra maiúscula e minúscula
               invalid_number_format: Você precisa informar ao menos um número
               invalid_special_character: Você precisa informar ao menos um caractere especial
-            solicitation_password:
-              uninformed_password: Senha para solicitações deve ser informada
-            current_solicitation_password:
-              uninformed_current_password: Senha atual de solicitações deve ser informada
-              invalid_current_solicitation_password: Senha atual da solicitação está incorreta
             cpf:
               invalid_format: CPF inválido
             base:
-              cant_have_account_or_headquarter: Usuário administrador não pode ter conta e/ou unidade;

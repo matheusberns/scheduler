@@ -1,8 +1,0 @@
-pt-BR:
-  enumerations:
-    group_type_enum:
-      group: Grupo
-      account: JoinIn (automático)
-      department: Departamento (automático)
-      headquarter: Unidade (automático)
-      admin: JoinIn (automático)

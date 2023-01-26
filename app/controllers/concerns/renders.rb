@@ -13,19 +13,13 @@ module Renders
       fields = params[:attributes].split(',') if params[:attributes].present?
 
       return_name = return_name.camelize(:lower) if params[:key_transform_camel_lower]
-
       json = {
-        return_name => ActiveModelSerializers::SerializableResource.new(paginated_objects, {
-                                                                          each_serializer: serializer,
-                                                                          params: custom_params,
-                                                                          fields: fields,
-                                                                          key_transform: (params[:key_transform_camel_lower] ? 'camel_lower' : nil)
-                                                                        }).as_json,
+        return_name => ActiveModelSerializers::SerializableResource.new(paginated_objects, { each_serializer: serializer, params: custom_params, fields: fields, key_transform: (params[:key_transform_camel_lower] ? 'camel_lower' : nil) }).as_json,
         count: objects.size
       }
 
-      if custom_params&.key?(:can_edit) || custom_params&.key?(:can_manage_users) || custom_params&.key?(:account_name)
-        custom_params = custom_params&.filter { |key| (key.eql? :can_edit) || (key.eql? :can_manage_users) || (key.eql? :account_name) }
+      if custom_params&.key?(:can_edit) || custom_params&.key?(:account_name)
+        custom_params = custom_params&.filter { |key| (key.eql? :can_edit) || (key.eql? :account_name) }
         custom_params.deep_transform_keys! { |key| key.to_s.camelize(:lower) } if params[:key_transform_camel_lower]
         json.merge!(custom_params)
       end
@@ -33,19 +27,16 @@ module Renders
       render json: json, status: :ok
     end
 
+    def render_solicitations_json(objects, return_name)
+      paginated_objects = objects.paginate(page: params[:page] || 1, per_page: params[:per_page] || 30)
+
+      return_name = return_name.camelize(:lower) if params[:key_transform_camel_lower]
+
+      render json: { return_name => paginated_objects, count: objects.size }, status: :ok
+    end
+
     def render_show_json(object, serializer, return_name, status = nil, custom_params = nil)
       object_all_fields = object.class.show.find(object.id)
-
-      render_show(object_all_fields, serializer, return_name, status, custom_params)
-    end
-
-    def render_show_current_user_json(object, serializer, return_name, status = nil, custom_params = nil)
-      object_all_fields = object.class.show(@current_user.id).find(object.id)
-
-      render_show(object_all_fields, serializer, return_name, status, custom_params)
-    end
-
-    def render_show(object_all_fields, serializer, return_name, status, custom_params)
       status ||= 200
       fields = params[:attributes].split(',') if params[:attributes].present?
 
@@ -92,16 +83,6 @@ module Renders
       end
 
       render json: json, status: status
-    end
-
-    def render_index_success_json(status: nil, body: nil, return_name: nil)
-      status ||= 200
-
-      body.each { |b| b.deep_transform_keys! { |key| key.to_s.camelize(:lower) } if params[:key_transform_camel_lower] }
-
-      return_name = return_name.camelize(:lower) if params[:key_transform_camel_lower]
-
-      render json: { return_name => body }, status: status
     end
 
     def render_enum_index_json(enumerators, return_name)
@@ -154,10 +135,12 @@ module Renders
       }, status: :unprocessable_entity
     end
 
-    def render_error_json(error: nil, status: nil)
+    def render_error_json(error, status = nil)
       status ||= 422
 
-      json = error ? { errors: { base: error } } : {}
+      json = {}
+
+      json.merge!({ errors: { base: error } }) if error
 
       render json: json, status: status
     end

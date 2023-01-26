@@ -59,7 +59,7 @@ module Admins::Accounts::Integrations
     end
 
     def user_create_params
-      user_params.merge(created_by_id: @current_user&.id, is_integrator: true, account_id: @integration.account_id)
+      user_params.merge(created_by_id: @current_user&.id, is_integrator: true)
     end
 
     def user_update_params

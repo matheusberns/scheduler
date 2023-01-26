@@ -1,0 +1,8 @@
+pt-BR:
+  enumerations:
+    status_invoice_type_enum:
+      typed: Digitada
+      closed: Fechada
+      canceled: Cancelada
+      document_issued: Documento Fiscal Emitido (saída)
+      awaiting_closing: Aguardando Fechamento (pós-saída)

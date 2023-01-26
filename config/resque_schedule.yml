@@ -1,0 +1,47 @@
+import_billings_job:
+  cron: "10,40 * * * *"
+  class: "ImportBillingsJob"
+  queue: import_billings_job
+  description: Consulta e atualização titulos financeiros
+
+import_invoices_job:
+  cron: "20,50 * * * *"
+  class: "ImportInvoicesJob"
+  queue: import_invoices_job
+  description: Consulta e atualização notas
+
+import_installments_job:
+  cron: "30 * * * *"
+  class: "ImportInstallmentsJob"
+  queue: import_installments_job
+  description: Consulta e atualização notas
+
+import_billet_billings_job:
+  cron: "40 * * * *"
+  class: "ImportBilletBillingsJob"
+  queue: import_billet_billings_job
+  description: Importar arquivo boletos
+
+import_danfe_invoices_job:
+  cron: "10 * * * *"
+  class: "ImportDanfeInvoicesJob"
+  queue: import_danfe_invoices_job
+  description: Importar pdf nota
+
+import_customers_job:
+  cron: "0,10,20,30,40,50 * * * *"
+  class: "ImportCustomersJob"
+  queue: import_customers_job
+  description: Consulta e atualização cliente e contatos
+
+send_user_logs_job:
+  cron: "0 * * * *"
+  class: "SendUserLogsJob"
+  queue: send_user_logs_job
+  description: Envia log de acesso dos usuário
+
+integrate_budgets_job:
+  cron: "* * * * *"
+  class: "IntegrateBudgetsJob"
+  queue: integrate_budgets_job
+  description: Busca orçamentos aguardando integração e os envia

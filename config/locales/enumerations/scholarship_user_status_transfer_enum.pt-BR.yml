@@ -1,6 +1,0 @@
-pt-BR:
-  enumerations:
-    scholarship_user_status_transfer_enum:
-      pending: Pendente
-      approved: Aprovado
-      reproved: Reprovado

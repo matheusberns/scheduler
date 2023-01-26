@@ -1,19 +1,20 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
+
+source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.1.2"
+ruby '3.0.2'
 
-# Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 7.0.4"
-
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
-gem "sprockets-rails"
-
-# Use PostgreSQL as the database for Active Record
-gem 'pg'
-
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '6.1.4.1'
+# Use postgresql as the database for Active Record
+gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
+# Use Redis adapter to run Action Cable in production
+# gem 'redis', '~> 4.0'
+# Use Active Model has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
 gem 'image_processing', '~> 1.2'
@@ -45,18 +46,22 @@ end
 group :development do
   gem 'listen', '~> 3.2'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring', '3.0.0'
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 # Token based authentication for Rails JSON APIs.
-gem 'devise', '~> 4.8.0'
+gem 'devise', '~> 4.7.3'
 gem 'devise_token_auth'
 
 # Enumerations for Ruby with some magic powers!
 gem 'enumerate_it'
+
+# A lightning fast JSON:API serializer for Ruby Objects.
+gem 'active_model_serializers'
 
 # Pagination library.
 gem 'will_paginate'
@@ -65,10 +70,7 @@ gem 'will_paginate'
 gem 'httparty'
 
 # Rollbar is a real-time exception reporting service for Ruby and other languages.
-gem 'rollbar'
-
-# The New Relic Ruby agent monitors your applications to help you identify and solve performance issues.
-gem 'newrelic_rpm'
+# gem 'rollbar'
 
 # This gem does some CPF/CNPJ magic. It allows you to create, validate and format CPF/CNPJ, even through the command-line
 gem 'cpf_cnpj'
@@ -86,44 +88,13 @@ gem 'savon', '~> 2.12.0'
 gem 'pdf-reader', '~> 1.4'
 
 # Community Axlsx is an Office Open XML Spreadsheet generator for the Ruby programming language.
-gem 'axlsx_styler'
-gem 'caxlsx', '3.1.1'
-gem 'caxlsx_rails'
+gem 'caxlsx'
 
-# Roo implements read access for all common spreadsheet types. It can handle:
-gem 'roo-xls'
-
-# Apnotic is a gem for sending Apple Push Notifications using the HTTP-2 specifics.
-gem 'apnotic'
+# Houston is a simple gem for sending Apple Push Notifications. Pass your credentials, construct your message, and send it.
+gem 'houston'
 
 # Net::LDAP for Ruby (also called net-ldap) implements client access for the Lightweight Directory Access Protocol (LDAP)
 gem 'net-ldap'
 
-# Rubyzip is a ruby library for reading and writing zip files
-gem 'rubyzip'
-
-# Prawn::Rails provides a simple way of creating PDF views in Rails 3 using the prawn library.
-gem 'prawn-rails'
-
-# Simple yet powerful wrapper around the ffmpeg command for reading metadata and transcoding movies.
-gem 'streamio-ffmpeg'
-
-# Creates QR code files in png, bmp, png, jpg, tif and svg file format.
-gem 'rqrcode', '~> 2.0'
-
-# Object geocoding (by street or IP address), reverse geocoding (coordinates to street address)
-gem 'geocoder', '~> 1.7', '>= 1.7.2'
-
-# Uses wkhtmltopdf to create PDFs using HTML
-gem 'pdfkit', '~> 0.8.5'
-
-gem 'hexapdf'
-
-# Provides binaries for WKHTMLTOPDF project in an easily accessible package.
-gem 'wkhtmltopdf-binary', '0.12.6.5'
-
-# This gem brings back assigns to your controller tests as well as assert_template to both controller and integration tests.
-gem 'rails-controller-testing'
-
-#An implementation of Matrix and Vector classes.
-gem 'matrix'
+# An easy-to-use wrapper for Net::HTTP, Net::HTTPS and Net::FTP.
+gem 'open-uri', '~> 0.2.0'

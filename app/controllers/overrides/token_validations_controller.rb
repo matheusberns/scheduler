@@ -7,14 +7,7 @@ module Overrides
     def validate_token
       # @resource will have been set by set_user_by_token concern
       if @resource
-        @account_tools = @resource.account_tools.activated.select("#{Many::AccountTool.table_name}.*").select('tools.tool_code').joins(:tool)
-
-        unless @resource.integration_tokens.any?
-          @resource.integration_tokens << SecureRandom.urlsafe_base64(nil, false)
-          @resource.save
-        end
-
-        render_show_json(@resource, Overrides::SessionSerializer, 'user', 200, { account_tools: @account_tools })
+        render_show_json(@resource, Overrides::SessionSerializer, 'user')
       else
         render_validate_token_error
       end

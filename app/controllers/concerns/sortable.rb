@@ -21,8 +21,6 @@ module Sortable
           sort_directions_first = sort_directions.first
 
           sort_direction = sort_directions_first if sort_directions.size == 1 && sort_directions_first == 'asc' || sort_directions_first == 'desc'
-        else
-          sort_direction = 'asc'
         end
 
         order_method = "order_by_#{sort_property.to_s.downcase}".to_sym

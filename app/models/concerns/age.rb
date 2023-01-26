@@ -15,10 +15,6 @@ module Age
     def updated_at_age
       age(updated_at)
     end
-
-    def date_age(date)
-      age(date)
-    end
   end
 
   private

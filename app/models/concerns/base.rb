@@ -15,7 +15,7 @@ module Base
       select('created_by.name created_by_name, updated_by.name updated_by_name')
         &.joins("LEFT JOIN users created_by ON created_by.id = #{table_name}.created_by_id")
         &.joins("LEFT JOIN users updated_by ON updated_by.id = #{table_name}.updated_by_id")
-        &.includes(created_by: [:headquarter, :department, :shift, :manager, { photo_attachment: :blob }])
+        &.includes(created_by: { photo_attachment: :blob })
     }
     scope :by_created_by_name, lambda { |name|
       where("EXISTS(SELECT 1 FROM users created_by WHERE created_by.id = #{table_name}.created_by_id "\
@@ -30,7 +30,6 @@ module Base
     def destroy
       run_callbacks(:destroy) do
         return false if errors.messages.any?
-        return true unless active
 
         update_columns(active: false, deleted_at: Time.zone.now)
       end

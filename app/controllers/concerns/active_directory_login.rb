@@ -7,9 +7,7 @@ module ActiveDirectoryLogin
     username = already_registered_username || @login_value
     password = resource_params[:password]
 
-    @active_directory = ::ActiveDirectory::Connection.new(username: username, password: password, account: @login_account)
-
-    Rails.logger.info(@active_directory.as_json['connection'])
+    @active_directory = ::ActiveDirectory::Ldap::Connection.new(username, password, @login_account)
 
     return if @active_directory.nil?
 
@@ -27,8 +25,6 @@ module ActiveDirectoryLogin
 
   def valid_active_directory_resource?
     return if @active_directory.nil?
-
-    Rails.logger.info(@active_directory.as_json['connection'])
 
     @exceeded_attempts = @active_directory.as_json['connection']['result']['ldap_result']['errorMessage'].include?('data 775') unless @active_directory.authenticated?
 

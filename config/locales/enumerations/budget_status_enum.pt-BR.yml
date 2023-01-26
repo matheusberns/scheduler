@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    budget_status_enum:
+      in_typing: Em digitação
+      integrating: Integrando
+      integrated: Integrado

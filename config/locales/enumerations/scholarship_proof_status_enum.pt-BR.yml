@@ -1,7 +1,0 @@
-pt-BR:
-  enumerations:
-    scholarship_proof_status_enum:
-      in_analysis: Aguardando aprovação
-      approved: Aprovado
-      reproved: Reprovado
-      pending: Pendente

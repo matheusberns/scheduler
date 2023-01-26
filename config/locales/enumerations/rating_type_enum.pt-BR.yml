@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    rating_type_enum:
+      product: Produto
+      delivery: Entrega
+      attendance: Atendimento

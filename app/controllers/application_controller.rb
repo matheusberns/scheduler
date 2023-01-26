@@ -6,7 +6,7 @@ class ApplicationController < ActionController::API
   # Devise concerns
   include DeviseTokenAuth::Concerns::SetUserByToken
 
-  # concerns
+  # Velow concerns
   include CheckAuthentication
 
   def default_url_options

@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    priority_type_enum:
+      urgent: Urgente
+      average: Média
+      low: Baixa

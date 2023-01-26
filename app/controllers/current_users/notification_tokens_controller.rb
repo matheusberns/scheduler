@@ -13,7 +13,7 @@ module CurrentUsers
     end
 
     def create
-      @notification_token = @current_user.notification_tokens.find_or_initialize_by(notification_token_params)
+      @notification_token = @current_user.notification_tokens.new(notification_token_params)
 
       if @notification_token.save
         render_show_json(@notification_token, NotificationTokens::ShowSerializer, 'notification_token', 201)
@@ -23,7 +23,7 @@ module CurrentUsers
     end
 
     def destroy
-      if @notification_token.nil? || @notification_token.destroy
+      if @notification_token.destroy
         render_success_json
       else
         render_errors_json(@notification_token.errors.messages)
@@ -36,7 +36,7 @@ module CurrentUsers
       @notification_token = @current_user
                             .notification_tokens
                             .activated
-                            .find_by(token: params[:token])
+                            .find_by!(token: params[:token])
     end
 
     def notification_token_params

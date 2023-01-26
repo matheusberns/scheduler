@@ -2,7 +2,7 @@
 
 module Admins
   class AccountsController < ::ApiController
-    before_action :set_account, only: %i[show update destroy images send_mail]
+    before_action :set_account, only: %i[show update destroy images]
 
     def index
       @accounts = ::Account.list
@@ -11,7 +11,7 @@ module Admins
                                 :by_name,
                                 :by_uuid)
 
-      render_index_json(@accounts, Accounts::IndexSerializer, 'accounts')
+      render_index_json(@accounts, ::Admins::Accounts::IndexSerializer, 'accounts')
     end
 
     def autocomplete
@@ -19,18 +19,18 @@ module Admins
 
       @accounts = apply_filters(@accounts, :active_boolean, :by_search)
 
-      render_index_json(@accounts, Accounts::AutocompleteSerializer, 'accounts')
+      render_index_json(@accounts, ::Admins::Accounts::AutocompleteSerializer, 'accounts')
     end
 
     def show
-      render_show_json(@account, Accounts::ShowSerializer, 'account')
+      render_show_json(@account, ::Admins::Accounts::ShowSerializer, 'account')
     end
 
     def create
       @account = ::Account.new(account_create_params)
 
       if @account.save
-        render_show_json(@account, Accounts::ShowSerializer, 'account', 201)
+        render_show_json(@account, ::Admins::Accounts::ShowSerializer, 'account', 201)
       else
         render_errors_json(@account.errors.messages)
       end
@@ -38,7 +38,7 @@ module Admins
 
     def update
       if @account.update(account_update_params)
-        render_show_json(@account, Accounts::ShowSerializer, 'account')
+        render_show_json(@account, ::Admins::Accounts::ShowSerializer, 'account')
       else
         render_errors_json(@account.errors.messages)
       end
@@ -56,7 +56,7 @@ module Admins
       @account = ::Account.list.active(false).find(params[:id])
 
       if @account.recover
-        render_show_json(@account, Accounts::ShowSerializer, 'account')
+        render_show_json(@account, ::Admins::Accounts::ShowSerializer, 'account')
       else
         render_errors_json(@account.errors.messages)
       end
@@ -64,15 +64,7 @@ module Admins
 
     def images
       if @account.update(images_params)
-        render_show_json(@account, Accounts::ShowSerializer, 'account')
-      else
-        render_errors_json(@account.errors.messages)
-      end
-    end
-
-    def send_mail
-      if @account.send_mail(received_email: params[:received_email])
-        render_success_json
+        render_show_json(@account, ::Admins::Accounts::ShowSerializer, 'account')
       else
         render_errors_json(@account.errors.messages)
       end
@@ -113,36 +105,16 @@ module Admins
           :smtp_host,
           :smtp_host,
           :smtp_email,
-          :smtp_ssl,
-          :users_timeout,
-          :mandatory_comment,
           :timeout_in,
-          :timeout_in_to_all_users,
-          :imap_host,
-          :imap_port,
-          :imap_user,
-          :imap_password,
-          :imap_ssl,
-          :imap_execution_max_time,
-          :imap_execution_interval_time,
           :reports_sender_email,
           :is_active_directory,
           :active_directory_host,
           :active_directory_base,
           :active_directory_domain,
-          :active_directory_cpf_field,
-          :active_directory_can_change_password,
-          :active_directory_ca_file,
-          :active_directory_ssl_version,
-          :active_directory_password_recover_url,
-          :active_directory_password_change_url,
-          :active_directory_password_change_guide,
-          :layout_space_bar,
-          :user_can_reset_pin,
-          :blocked_chat,
-          :blocked_chat_message,
-          :logout_by_tab_closed,
-          :logout_by_tab_closed_to_all_users
+          primary_color: {},
+          secondary_color: {},
+          primary_colors: %i[name color contrast_color],
+          secondary_colors: %i[name color contrast_color]
         )
     end
   end

@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    service_subtype_enum:
+      commercial_attendance: Atendimento comercial
+      financial: Financeiro
+      logistical: Logística
+      product_quality: Qualidade de produto

@@ -1,7 +1,0 @@
-pt-BR:
-  enumerations:
-    car_reservation_status_enum:
-      approved: Aprovado
-      canceled: Cancelado
-      withdrawn: Retirado
-      returned: Concluído

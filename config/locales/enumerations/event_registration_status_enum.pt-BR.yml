@@ -1,7 +1,0 @@
-pt-BR:
-  enumerations:
-    event_registration_status_enum:
-      subscribed: Inscrito
-      canceled: Cancelado
-      pending: Pendente
-      confirmed: Confirmado

@@ -1,5 +1,0 @@
-pt-BR:
-  enumerations:
-    contact_type_enum:
-      phone_extension: Ramal
-      bip: BIP

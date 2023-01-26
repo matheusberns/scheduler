@@ -1,0 +1,6 @@
+pt-BR:
+  enumerations:
+    service_type_enum:
+      technical_question: Dúvida técnica
+      reclamation: Reclamação
+      document_request: Solicitação de Documentos

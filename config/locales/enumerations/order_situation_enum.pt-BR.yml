@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    order_situation_enum:
+      in_analysis: Em análise
+      processing: Em processamento
+      concluded: Concluído
+      refused: Recusado

@@ -21,10 +21,11 @@ require 'rails/test_unit/railtie'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module BarberApp
+module Api
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.1
+    config.load_defaults 6.0
+    config.autoloader = :classic
 
     # Brazilian timezone
     config.time_zone = 'Brasilia'

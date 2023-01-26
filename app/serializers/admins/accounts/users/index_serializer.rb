@@ -1,0 +1,17 @@
+# frozen_string_literal: true
+
+module Admins
+  module Accounts
+    module Users
+      class IndexSerializer < BaseSerializer
+        attributes :name,
+                   :email,
+                   :last_sign_in_at
+
+        def last_sign_in_at
+          object.last_sign_in_at&.iso8601
+        end
+      end
+    end
+  end
+end

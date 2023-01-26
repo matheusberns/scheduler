@@ -1,39 +1,28 @@
+# PostgreSQL. Versions 9.3 and up are supported.
+
 default: &default
   host: localhost
   adapter: postgresql
   encoding: unicode
   user: postgres
-  pool: 10
   timeout: 5000
   password: p0stgr3s
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: barber_development
+  database: portal_client_development
 
-#test:
-#  host: ec2-54-86-106-48.compute-1.amazonaws.com
-#  database: d577v51hapbqgc
-#  user: mtdonjunxmwvft
-#  port: 5432
-#  password: 243e15cb7e17fde2d6b89cd3893b3dcd1e66d1a56d7138cf00288829341ef222
-#  uri: postgres://mtdonjunxmwvft:243e15cb7e17fde2d6b89cd3893b3dcd1e66d1a56d7138cf00288829341ef222@ec2-54-86-106-48.compute-1.amazonaws.com:5432/d577v51hapbqgc
-#  heroku_cli: heroku pg:psql postgresql-cylindrical-45712 --app for4gearhead
+test:
+  <<: *default
+  database: portal_client_test
 
-#sandbox:
-#  host: ec2-54-86-106-48.compute-1.amazonaws.com
-#  database: d577v51hapbqgc
-#  user: mtdonjunxmwvft
-#  port: 5432
-#  password: 243e15cb7e17fde2d6b89cd3893b3dcd1e66d1a56d7138cf00288829341ef222
-#  uri: postgres://mtdonjunxmwvft:243e15cb7e17fde2d6b89cd3893b3dcd1e66d1a56d7138cf00288829341ef222@ec2-54-86-106-48.compute-1.amazonaws.com:5432/d577v51hapbqgc
-#  heroku_cli: heroku pg:psql postgresql-cylindrical-45712 --app for4gearhead
+sandbox:
+  <<: *default
+  database: portal_client_sandbox
 
-#production:
-#  host: ec2-54-86-106-48.compute-1.amazonaws.com
-#  database: d577v51hapbqgc
-#  user: mtdonjunxmwvft
-#  port: 5432
-#  password: 243e15cb7e17fde2d6b89cd3893b3dcd1e66d1a56d7138cf00288829341ef222
-#  uri: postgres://mtdonjunxmwvft:243e15cb7e17fde2d6b89cd3893b3dcd1e66d1a56d7138cf00288829341ef222@ec2-54-86-106-48.compute-1.amazonaws.com:5432/d577v51hapbqgc
-#  heroku_cli: heroku pg:psql postgresql-cylindrical-45712 --app for4gearhead
+production:
+  <<: *default
+  host: localhost
+  database: portal_client_production
+  password: <%= ENV['DATABASE_PASSWORD'] %>

@@ -1,7 +1,0 @@
-pt-BR:
-  enumerations:
-    attendance_status_enum:
-      opened: Aberto
-      in_progress: Em progresso
-      waiting: Aguardando
-      closed: Fechado

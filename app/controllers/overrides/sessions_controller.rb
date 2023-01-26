@@ -9,15 +9,14 @@ module Overrides
 
     def create
       render_login_field_error and return unless login_field.present?
-      return render_create_error_bad_credentials unless resource_params[:password].present?
 
-      @resource = if @login_account&.active_directory?
+      @resource = if @login_account&.active_directory? && !Rails.env.development?
                     find_active_directory_resource || find_active_devise_resource
                   else
                     find_active_devise_resource
                   end
 
-      render_account_not_found_error and return unless @login_account.present? || Rails.env.development? || @resource&.administrator?
+      render_account_not_found_error and return unless @login_account.present? || @resource&.administrator?
 
       render_unauthorized_error and return if invalid_integrator_access?
 
@@ -25,8 +24,6 @@ module Overrides
         return render_create_error_bad_credentials if not_login_valid?
 
         @token = @resource.create_token
-        @integration_token = SecureRandom.urlsafe_base64(nil, false)
-        @resource.integration_tokens << @integration_token if @resource.integration_tokens.nil?
         @resource.save
 
         return render_errors_json(@resource.errors.messages) if @resource.errors.messages.any?
@@ -50,9 +47,7 @@ module Overrides
     protected
 
     def render_create_success
-      @account_tools = @resource.account_tools.activated.select("#{Many::AccountTool.table_name}.*").select('tools.tool_code').joins(:tool)
-
-      render_show_json(@resource, SessionSerializer, 'user', 200, { integration_token: @integration_token, account_tools: @account_tools })
+      render_show_json(@resource, SessionSerializer, 'user')
     end
 
     private
@@ -78,6 +73,8 @@ module Overrides
     def login_account
       request_origin = request&.origin || params[:base_url]
       return if request_origin.nil?
+
+      request_origin = "https://portal.volkdobrasil.com.br" if Rails.env.development?
 
       @login_account = ::Account.list.find_by(base_url: request_origin)
     end
@@ -106,9 +103,8 @@ module Overrides
         only_numbers = @login_value.gsub(/\D/, '')
         return unless only_numbers.present?
 
-        user = ::User.active(true).find_by('cpf' => only_numbers)
-        user = ::User.active(true).find_by('identification_number' => only_numbers) if user.nil?
-        user
+        ::User.active(true).find_by('cpf' => only_numbers)
+
       end
     end
 

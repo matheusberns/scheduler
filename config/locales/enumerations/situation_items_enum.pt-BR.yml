@@ -1,0 +1,7 @@
+pt-BR:
+  enumerations:
+    situation_items_enum:
+      available: Disponível
+      without_stock: Sem estoque
+      waiting: Aguardando
+      blocked: Bloqueado
