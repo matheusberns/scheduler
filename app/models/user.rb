@@ -53,8 +53,8 @@ class User < ApplicationRecord
       .select("#{::Account.table_name}.secondary_color account_secondary_color")
       .select("#{::Account.table_name}.primary_colors account_primary_colors")
       .select("#{::Account.table_name}.secondary_colors account_secondary_colors")
-      .select("#{::Customer.table_name}.name customer_name")
-      .select("#{::Customer.table_name}.cpf_cnpj customer_cpf_cnpj")
+      # .select("#{::Customer.table_name}.name customer_name")
+      # .select("#{::Customer.table_name}.cpf_cnpj customer_cpf_cnpj")
       .left_joins(:account)
       .includes(photo_attachment: :blob)
       .traceability

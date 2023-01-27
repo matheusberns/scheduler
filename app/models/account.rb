@@ -81,7 +81,7 @@ class Account < ApplicationRecord
   private
 
   def find_portal_account
-    return if Rails.env.test?
+    return if Rails.env.test? || Rails.env.development?
 
     account_request = ::Accounts::AccountConsult.new(uuid: uuid).find
     return unless account_request[:success]
@@ -94,7 +94,7 @@ class Account < ApplicationRecord
   end
 
   def check_uuid
-    errors.add(:uuid, :invalid) unless portal_account.present? || Rails.env.test?
+    errors.add(:uuid, :invalid) unless portal_account.present? || Rails.env.test? || Rails.env.development?
   end
 
   def set_logo_from_account
