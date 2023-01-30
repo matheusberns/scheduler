@@ -5,4 +5,4 @@ require_relative 'application'
 
 # Initialize the Rails application.
 Rails.application.initialize!
-Rails.application.config.hosts << 'apiconnect.velow.com.br'
+Rails.application.config.hosts << 'containers-us-west-106.railway.app'

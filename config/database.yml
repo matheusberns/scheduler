@@ -19,10 +19,11 @@ test:
 
 sandbox:
   <<: *default
-  database: smartbarber_sandbox
 
 production:
   <<: *default
-  host: localhost
-  database: smartbarber_production
-  password: <%= ENV['DATABASE_PASSWORD'] %>
+  adapter: postgresql
+  host: containers-us-west-106.railway.app
+  password: YWIzrwv4SqqnMsaGXluo
+  database: railway
+#  password: <%#= ENV['DATABASE_PASSWORD'] %>
