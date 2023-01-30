@@ -16,4 +16,11 @@ namespace :resque do
   task scheduler: :setup_schedule
 end
 
+Rake::Task["assets:precompile"].clear
+namespace :assets do
+  task 'precompile' do
+    puts "Not pre-compiling assets..."
+  end
+end
+
 Resque.after_fork = proc { ActiveRecord::Base.establish_connection }
