@@ -98,3 +98,5 @@ gem 'net-ldap'
 
 # An easy-to-use wrapper for Net::HTTP, Net::HTTPS and Net::FTP.
 gem 'open-uri', '~> 0.2.0'
+
+gem "dockerfile-rails", ">= 1.0.0", :group => :development
